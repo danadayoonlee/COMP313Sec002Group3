@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="partialview" template="/WEB-INF/partialview.jsp">
+		<put-attribute name="content" value="" />
+	</definition>
+
+	<definition name="index" extends="partialview">
+		<put-attribute name="content" value="/WEB-INF/index.jsp" />
+	</definition>
+
+	<definition name="aboutus" extends="partialview">
+		<put-attribute name="content" value="/WEB-INF/aboutus.jsp" />
+	</definition>
+
+	<definition name="news" extends="partialview">
+		<put-attribute name="content" value="/WEB-INF/news.jsp" />
+	</definition>
+		<definition name="contactus" extends="partialview">
+		<put-attribute name="content" value="/WEB-INF/contactus.jsp" />
+	</definition>
+</tiles-definitions>
