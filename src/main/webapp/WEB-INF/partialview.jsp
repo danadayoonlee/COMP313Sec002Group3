@@ -15,18 +15,18 @@ li {
 }
 </style>
 </head>
-<body style = "background: black; height: 100%;">
-<div class="container-fluid" style="font-family: 'Poppins', sans-serif; color: white;  min-height: 100%">
+<body style = "background: white; height: 100%; color: black;">
+<div class="container-fluid" style="font-family: 'Poppins', sans-serif;   min-height: 100%">
 	<div class="row" style="overflow: auto; padding-bottom: 10px;">
-		<div class="col-6" style="background-color: white; color: black; height: 60px;">
+		<div class="col-6" style="background-color: black; color: white; height: 60px;">
 		<h1 style="font-size : 25px; margin-top: 10px;">CuraHealthyMe</h1>
 		</div>
-		<div class="col-6" style="background-color: white; color: black; font-size: 25px; ">
-		<a href="${pageContext.request.contextPath}/">Home</a> |
-		<a href="${pageContext.request.contextPath}/aboutus">About Us</a> |
-		<a href="${pageContext.request.contextPath}/contactus">Contact Us</a> |
-		<a href="${pageContext.request.contextPath}/news">News</a> |
-		<a href="${pageContext.request.contextPath}/login">Login</a>
+		<div class="col-6" style="background-color: black; color: white; font-size: 25px; ">
+		<a href="${pageContext.request.contextPath}/" style="color: white;">Home</a> |
+		<a href="${pageContext.request.contextPath}/aboutus" style="color: white;">About Us</a> |
+		<a href="${pageContext.request.contextPath}/contactus" style="color: white;">Contact Us</a> |
+		<a href="${pageContext.request.contextPath}/news" style="color: white;">News</a> |
+		<a href="${pageContext.request.contextPath}/login" style="color: white;">Login</a>
 		</div>
 	</div>
 	<br />
@@ -36,7 +36,7 @@ li {
 		</div>
 	</div>
 </div>
-	<footer style="background-color: white; position: relative; height: 100px; margin-to: -100px; clear: both;">
+	<footer style="background-color: white;font-family: 'Poppins', sans-serif; position: relative; height: 100px; margin-to: -100px; clear: both;">
 		<div class="row">
 			<div class="col text-center">
 				<span>Copyright &copy;curahealthyme</span>
