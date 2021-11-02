@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "patientCOVID19Screening")
+@Table(name = "patientcovid19screening")
 public class PatientCOVID19Screening {
 
 	@Id
@@ -17,10 +17,10 @@ public class PatientCOVID19Screening {
 	@Column(name = "id")
 	private long Id;
 
-	@Column(name = "patientId")
+	@Column(name = "patientid")
 	public long PatientId;
 
-	@Column(name = "testDate")
+	@Column(name = "testdate")
 	public Date TestDate;
 
 	@Column(name = "result")

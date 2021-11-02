@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_Logon")
+@Table(name = "user_logon")
 public class User_Logon {
 
 	@Id
@@ -21,7 +21,7 @@ public class User_Logon {
 	@Column(name = "password")
 	public String Password;
 	
-	@Column(name = "userAccessId")
+	@Column(name = "userAccessid")
 	private long UserAccessId;
 	
 	public long getId() {

@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import org.springframework.format.datetime.standard.DateTimeContext;
+
 @Entity
 @Table(name = "doctorSchedule")
 public class DoctorSchedule {
@@ -17,17 +19,17 @@ public class DoctorSchedule {
 	@Column(name = "id")
 	private long Id;
 
-	@Column(name = "doctorId")
+	@Column(name = "doctorid")
 	public long DoctorId;
 
 	@Column(name = "date")
 	public Date Date;
 
-	@Column(name = "availableStartTime")
-	public Date AvailableStartTime;
+	@Column(name = "availablestarttime")
+	public DateTimeContext AvailableStartTime;
 
-	@Column(name = "availableEndTime")
-	public Date AvailableEndTime;
+	@Column(name = "availableendtime")
+	public DateTimeContext AvailableEndTime;
 
 	public long getId() {
 		return Id;
@@ -53,19 +55,19 @@ public class DoctorSchedule {
 		Date = date;
 	}
 
-	public Date getAvailableStartTime() {
+	public DateTimeContext getAvailableStartTime() {
 		return AvailableStartTime;
 	}
 
-	public void setAvailableStartTime(Date availableStartTime) {
+	public void setAvailableStartTime(DateTimeContext availableStartTime) {
 		AvailableStartTime = availableStartTime;
 	}
 
-	public Date getAvailableEndTime() {
+	public DateTimeContext getAvailableEndTime() {
 		return AvailableEndTime;
 	}
 
-	public void setAvailableEndTime(Date availableEndTime) {
+	public void setAvailableEndTime(DateTimeContext availableEndTime) {
 		AvailableEndTime = availableEndTime;
 	}
 

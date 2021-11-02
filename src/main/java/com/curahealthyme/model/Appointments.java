@@ -20,13 +20,13 @@ public class Appointments {
 	@Column(name = "joinid")
 	public long JoinId;
 
-	@Column(name = "appointmentStartTime")
+	@Column(name = "appointmentstarttime")
 	public Date AppointmentStartTime;
 
-	@Column(name = "appointmentEndTime")
+	@Column(name = "appointmentendtime")
 	public Date AppointmentEndTime;
 
-	@Column(name = "reasonForVisit")
+	@Column(name = "reasonforvisit")
 	public String ReasonForVisit;
 
 	public long getAppointmentId() {

@@ -9,15 +9,15 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "medicalStaff")
+@Table(name = "medicalstaff")
 public class MedicalStaff {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "employeeId")
+	@Column(name = "employeeid")
 	private long EmployeeId;
 
-	@Column(name = "employeeName")
+	@Column(name = "employeename")
 	public String EmployeeName;
 
 	@Column(name = "dob")
@@ -47,7 +47,7 @@ public class MedicalStaff {
 	@Column(name = "email")
 	public String Email;
 	
-	@Column(name = "loginId")
+	@Column(name = "loginid")
 	public long LoginId;
 
 	public long getEmployeeId() {

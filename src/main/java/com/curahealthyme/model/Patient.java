@@ -14,7 +14,7 @@ public class Patient {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "patientId")
+	@Column(name = "patientid")
 	private long PatientId;
 
 	@Column(name = "name")
@@ -47,7 +47,7 @@ public class Patient {
 	@Column(name = "email")
 	public String Email;
 	
-	@Column(name = "loginId")
+	@Column(name = "loginid")
 	public long LoginId;
 
 	public long getPatientId() {

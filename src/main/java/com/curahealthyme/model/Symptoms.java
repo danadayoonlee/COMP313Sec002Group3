@@ -12,10 +12,10 @@ public class Symptoms {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "symptomId")
+	@Column(name = "symptomid")
 	private long SymptomId;
 
-	@Column(name = "symptomName")
+	@Column(name = "symptomname")
 	public String SymptomName;
 	
 	@Column(name = "description")

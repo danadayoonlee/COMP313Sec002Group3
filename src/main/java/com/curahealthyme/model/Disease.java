@@ -1,7 +1,5 @@
 package com.curahealthyme.model;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,10 +12,10 @@ public class Disease {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "diseaseId")
+	@Column(name = "diseaseid")
 	private long DiseaseId;
 
-	@Column(name = "diseaseName")
+	@Column(name = "diseasename")
 	public String DiseaseName;
 
 	public long getDiseaseId() {

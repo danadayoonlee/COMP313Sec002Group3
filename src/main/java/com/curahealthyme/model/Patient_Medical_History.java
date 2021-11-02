@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "patient_Medical_History")
+@Table(name = "patient_medical_history")
 public class Patient_Medical_History {
 
 	@Id
@@ -17,13 +17,13 @@ public class Patient_Medical_History {
 	@Column(name = "id")
 	private long Id;
 	
-	@Column(name = "joinId")
+	@Column(name = "joinid")
 	public long JoinId;
 
-	@Column(name = "dateVisited")
+	@Column(name = "datevisited")
 	public Date DateVisited;
 	
-	@Column(name = "reasonForVisit")
+	@Column(name = "reasonforvisit")
 	public String ReasonForVisit;
 
 	@Column(name = "problems")
@@ -35,19 +35,19 @@ public class Patient_Medical_History {
 	@Column(name = "allergies")
 	public String Allergies;
 
-	@Column(name = "servicesDue")
+	@Column(name = "servicesdue")
 	public String ServicesDue;
 	
-	@Column(name = "locationOfVisit")
+	@Column(name = "locationofvisit")
 	public String LocationOfVisit;
 
-	@Column(name = "diseaseId")
+	@Column(name = "diseaseid")
 	public long DiseaseId;
 	
 	@Column(name = "treatment")
 	public String Treatment;
 
-	@Column(name = "followUp")
+	@Column(name = "followup")
 	public Date FollowUp;
 
 	public long getId() {

@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "patient_Doctor_Join")
+@Table(name = "patient_doctor_join")
 public class Patient_Doctor_Join {
 
 	@Id
@@ -15,10 +15,10 @@ public class Patient_Doctor_Join {
 	@Column(name = "id")
 	private long Id;
 
-	@Column(name = "patientId")
+	@Column(name = "patientid")
 	public long PatientId;
 
-	@Column(name = "doctorId")
+	@Column(name = "doctorid")
 	public long DoctorId;
 
 	public long getId() {

@@ -7,18 +7,18 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "userAccess")
+@Table(name = "useraccess")
 public class UserAccess {
 
 	@Id
 	@GeneratedValue
-	@Column(name = "userAccessId")
+	@Column(name = "useraccessid")
 	private long UserAccessId;
 
-	@Column(name = "permissionId")
+	@Column(name = "permissionid")
 	public long PermissionId;
 	
-	@Column(name = "userRole")
+	@Column(name = "userrole")
 	public String UserRole;
 	
 	@Column(name = "active")

@@ -9,20 +9,20 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "patientTestResult")
+@Table(name = "patienttestresult")
 public class PatientTestResult {
 	@Id
 	@GeneratedValue
 	@Column(name = "id")
 	private long Id;
 
-	@Column(name = "joinId")
+	@Column(name = "joinid")
 	public long JoinId;
 
-	@Column(name = "fileName")
+	@Column(name = "filename")
 	public String FileName;
 
-	@Column(name = "dateAdded")
+	@Column(name = "dateadded")
 	public Date DateAdded;
 	
 	@Column(name = "comments")

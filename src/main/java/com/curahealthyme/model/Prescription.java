@@ -12,10 +12,10 @@ public class Prescription {
 
 	@Id
 	@GeneratedValue
-	@Column(name="prescriptionId")
+	@Column(name="prescriptionid")
 	private long PrescriptionId;
 	
-	@Column(name="medicationName")
+	@Column(name="medicationname")
 	public String MedicationName;
 	
 	@Column(name="doseQty")
