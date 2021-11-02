@@ -9,24 +9,24 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="appointments")
+@Table(name = "appointments")
 public class Appointments {
 
 	@Id
 	@GeneratedValue
-	@Column(name="appointmentId")
+	@Column(name = "appointmentId")
 	private long AppointmentId;
-	
-	@Column(name="joinid")
+
+	@Column(name = "joinid")
 	public long JoinId;
-	
-	@Column(name="appointmentStartTime")
+
+	@Column(name = "appointmentStartTime")
 	public Date AppointmentStartTime;
-	
-	@Column(name="appointmentEndTime")
+
+	@Column(name = "appointmentEndTime")
 	public Date AppointmentEndTime;
-	
-	@Column(name="reasonForVisit")
+
+	@Column(name = "reasonForVisit")
 	public String ReasonForVisit;
 
 	public long getAppointmentId() {
@@ -36,7 +36,7 @@ public class Appointments {
 	public void setAppointmentId(long appointmentId) {
 		AppointmentId = appointmentId;
 	}
-	
+
 	public long getJoinId() {
 		return JoinId;
 	}
@@ -44,7 +44,7 @@ public class Appointments {
 	public void setJoinId(long joinId) {
 		JoinId = joinId;
 	}
-	
+
 	public Date getAppointmentStartTime() {
 		return AppointmentStartTime;
 	}
@@ -52,7 +52,7 @@ public class Appointments {
 	public void setAppointmentStartTime(Date appointmentStartTime) {
 		AppointmentStartTime = appointmentStartTime;
 	}
-	
+
 	public Date getAppointmentEndTime() {
 		return AppointmentEndTime;
 	}
@@ -68,6 +68,7 @@ public class Appointments {
 	public void setReasonForVisit(String reasonForVisit) {
 		ReasonForVisit = reasonForVisit;
 	}
-	
-	public Appointments() {}
+
+	public Appointments() {
+	}
 }
