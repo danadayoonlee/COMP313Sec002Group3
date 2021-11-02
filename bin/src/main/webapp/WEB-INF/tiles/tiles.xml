@@ -5,7 +5,8 @@
 
 <tiles-definitions>
 
-	<definition name="partialview" template="/WEB-INF/partialview.jsp">
+	<definition name="partialview"
+		template="/WEB-INF/partialview.jsp">
 		<put-attribute name="content" value="" />
 	</definition>
 
@@ -14,13 +15,25 @@
 	</definition>
 
 	<definition name="aboutus" extends="partialview">
-		<put-attribute name="content" value="/WEB-INF/aboutus.jsp" />
+		<put-attribute name="content"
+			value="/WEB-INF/aboutus.jsp" />
 	</definition>
 
 	<definition name="news" extends="partialview">
 		<put-attribute name="content" value="/WEB-INF/news.jsp" />
 	</definition>
-		<definition name="contactus" extends="partialview">
-		<put-attribute name="content" value="/WEB-INF/contactus.jsp" />
+	
+	<definition name="contactus" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/contactus.jsp" />
+	</definition>
+	
+	<definition name="login" extends="partialview">
+		<put-attribute name="content" value="/WEB-INF/login.jsp" />
+	</definition>
+	
+	<definition name="register" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/register.jsp" />
 	</definition>
 </tiles-definitions>
