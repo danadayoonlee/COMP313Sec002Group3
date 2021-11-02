@@ -14,26 +14,27 @@ li {
 </style>
 </head>
 <body>
-<div class="container-fluid">
-	<div class="row">
+<div class="container-fluid" style="min-height:100%;">
+	<div class="row" style="min-height:15%;">
 		<div class="col-6">
 		<h1>CuraHealthyMe</h1>
 		</div>
-		<div class="col-6">
+		<div class="col-6 text-right">
 		<a href="${pageContext.request.contextPath}/">Home</a> |
 		<a href="${pageContext.request.contextPath}/aboutus">About Us</a> |
 		<a href="${pageContext.request.contextPath}/contactus">Contact Us</a> |
-		<a href="${pageContext.request.contextPath}/news">News</a>
+		<a href="${pageContext.request.contextPath}/news">News</a> |
+		<a href="${pageContext.request.contextPath}/login">Login</a>
 		</div>
 	</div>
 	<br />
-	<div class="row">
+	<div class="row" style="min-height:70%;">
 		<div class="col">
 			<tiles:insertAttribute name="content"></tiles:insertAttribute>
 		</div>
 	</div>
 	<br />
-	<div class="row">
+	<div class="row" style="min-height:15%;">
 		<div class="col text-center">
 			<span>Copyright &copy;curahealthyme</span>
 		</div>
