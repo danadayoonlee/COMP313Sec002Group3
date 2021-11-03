@@ -26,10 +26,10 @@ public class DoctorSchedule {
 	public Date Date;
 
 	@Column(name = "availablestarttime")
-	public DateTimeContext AvailableStartTime;
+	public Date AvailableStartTime;
 
 	@Column(name = "availableendtime")
-	public DateTimeContext AvailableEndTime;
+	public Date AvailableEndTime;
 
 	public long getId() {
 		return Id;
@@ -55,19 +55,19 @@ public class DoctorSchedule {
 		Date = date;
 	}
 
-	public DateTimeContext getAvailableStartTime() {
+	public Date getAvailableStartTime() {
 		return AvailableStartTime;
 	}
 
-	public void setAvailableStartTime(DateTimeContext availableStartTime) {
+	public void setAvailableStartTime(Date availableStartTime) {
 		AvailableStartTime = availableStartTime;
 	}
 
-	public DateTimeContext getAvailableEndTime() {
+	public Date getAvailableEndTime() {
 		return AvailableEndTime;
 	}
 
-	public void setAvailableEndTime(DateTimeContext availableEndTime) {
+	public void setAvailableEndTime(Date availableEndTime) {
 		AvailableEndTime = availableEndTime;
 	}
 
