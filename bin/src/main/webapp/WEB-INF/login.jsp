@@ -2,12 +2,17 @@
 	pageEncoding="ISO-8859-1"%>
 <div class="container">
 	<div class="form-row">
-		<div class="col">
+		<div class="col text-center">
 			<h1>Login</h1>
 		</div>
 	</div>
 	<br />
-	<form method="post" action="/loginuser" style="width: 50%; margin-left: auto; margin-right: auto;">
+	<div class="row">
+		<div class="col text-center">
+		<small class="text-danger" th:inline="text">${errorMsg}</small>
+		</div>
+		</div>
+	<form method="post" action="/login" style="width: 50%; margin-left: auto; margin-right: auto;">
 		<div class="row">
 			<div class="col">
 				<label>Username</label>&nbsp; <input type="text"
