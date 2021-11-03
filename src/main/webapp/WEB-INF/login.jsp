@@ -3,7 +3,7 @@
 <div class="container">
 	<div class="form-row">
 		<div class="col text-center">
-			<h1 style="padding-top: 2%;">Login</h1>
+			<h1>Login</h1>
 		</div>
 	</div>
 	<br />
@@ -16,14 +16,14 @@
 		<div class="row">
 			<div class="col">
 				<label>Username</label>&nbsp; <input type="text"
-					class="form-control" name="username" id="username" required />
+					class="form-control" name="username" id="username" />
 			</div>
 		</div>
 		<br />
 		<div class="row">
 			<div class="col">
 				<label>Password</label>&nbsp; <input type="password"
-					class="form-control" name="password" id="password" required />
+					class="form-control" name="password" id="password" />
 			</div>
 		</div>
 		<br />
