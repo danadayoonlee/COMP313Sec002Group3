@@ -1,5 +1,8 @@
 package com.curahealthyme.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -45,9 +48,10 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginuser(@RequestParam("username") String username, @RequestParam("password") String pwd, Model model) {
+	public String loginuser(@RequestParam("username") String username, @RequestParam("password") String pwd, Model model, HttpSession session) {
 		if (userlogonRepo.findByUsername(username, pwd) != null)
 		{
+			session.setAttribute("USERNAME", username.toUpperCase());
 			return "redirect:/";
 		} else {
 			model.addAttribute("errorMsg","Invalid username and/or Password!");
@@ -55,6 +59,11 @@ public class UserController {
 		}
 		
 
+	}
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logout(HttpServletRequest request) {
+		request.getSession().invalidate();
+		return "redirect:/login";
 	}
 
 }
