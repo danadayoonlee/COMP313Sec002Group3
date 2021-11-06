@@ -5,7 +5,7 @@
 	<form method="post" action="/register" th:object=${patient}	style="width: 80%; margin-left: auto; margin-right: auto;">
 		<div class="form-row">
 			<div class="col text-center">
-				<h1>Create An Account</h1>
+				<h1 style="padding-top: 2%;">Create An Account</h1>
 			</div>
 		</div>
 		<br />

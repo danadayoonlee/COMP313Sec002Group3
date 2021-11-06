@@ -1,5 +1,8 @@
 package com.curahealthyme.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,19 +21,31 @@ public class HomeController {
 	
 	
 	@RequestMapping(value= "/")
-	public String home() {
-		return "index";
+	public String home(HttpServletRequest request) {
+		if (request.getSession().getAttribute("USERNAME") == null)
+			return "redirect:/login";
+		else
+			return "index";
 	}
 	@RequestMapping(value= "/aboutus")
-	public String about() {
+	public String about(HttpServletRequest request) {
+		if (request.getSession().getAttribute("USERNAME") == null)
+			return "redirect:/login";
+		else
 		return "aboutus";
 	}
 	@RequestMapping(value= "/contactus")
-	public String contact() {
+	public String contact(HttpServletRequest request) {
+		if (request.getSession().getAttribute("USERNAME") == null)
+			return "redirect:/login";
+		else
 		return "contactus";
 	}
 	@RequestMapping(value= "/news")
-	public String news() {
+	public String news(HttpServletRequest request) {
+		if (request.getSession().getAttribute("USERNAME") == null)
+			return "redirect:/login";
+		else
 		return "news";
 	}
 	
