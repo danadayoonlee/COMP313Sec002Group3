@@ -133,7 +133,7 @@
 		<br />
 		<div class="row">
 			<div class="col-6">
-				<label>Confirm Password</label> <input type="text"
+				<label>Confirm Password</label> <input type="password"
 					class="form-control" name="confirmpwd" id="confirmpwd" />
 			</div>
 		</div>
