@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.curahealthyme.model.MedicalStaff;
 import com.curahealthyme.model.Patient;
@@ -54,13 +55,12 @@ public class UserController {
 			User_Logon userlogon = new User_Logon();
 			userlogon.Username = username;
 			userlogon.Password = pwd;
-			userlogon.UserAccessId = Long.parseLong(accessId);
-			userlogon.setUserAccessId(6);
+			userlogon.setUserAccessId(Long.parseLong(accessId));
 			userlogonRepo.save(userlogon);
 			patient.setLoginId(userlogon.getId());
 			if (userrole.getUserRole().equals("Patient")) {
 				patientRepo.save(patient);
-			} else if (userrole.getUserRole().equals("Doctor")) {
+			} else {
 				MedicalStaff medicalStaff = new MedicalStaff();
 				medicalStaff.setEmployeeName(patient.getName());
 				medicalStaff.setDob(patient.getDob());
@@ -84,8 +84,14 @@ public class UserController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginuser(@RequestParam("username") String username, @RequestParam("password") String pwd,
 			Model model, HttpSession session) {
-		if (userlogonRepo.findByUsername(username, pwd) != null) {
+		User_Logon userlogon = userlogonRepo.findByUsername(username, pwd);
+		if (userlogon != null) {
+			long accessid = userlogonRepo.findUserAccessId(username);
+			String userrole = userAccessRepo.findById(accessid).UserRole;
 			session.setAttribute("USERNAME", username.toUpperCase());
+			session.setAttribute("userrole", userrole);
+			session.setAttribute("LoginId", userlogon.getId());
+			
 			return "redirect:/";
 		} else {
 			model.addAttribute("errorMsg", "Invalid username and/or Password!");

@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
-<html xmlns:th="http://www.thymeleaf.org">
+	<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<html xmlns:th="http://www.thymeleaf.org" >
 <head>
 <link href="webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
 <script src="webjars/bootstrap/4.3.1/js/bootstrap.min.js" type="text/javasript"></script>
@@ -12,6 +14,7 @@
 li {
 	list-style-type: none;
 }
+
 </style>
 </head>
 <body style = "background: white; height: 100%; color: black;">
@@ -35,7 +38,7 @@ li {
 		</div>
 	</div>
 </div>
-	<footer style="background-color: white;font-family: 'Poppins', sans-serif; position: relative; height: 100px; margin-to: -100px; clear: both;">
+	<footer style="background-color: white;font-family: 'Poppins', sans-serif; position: relative; min-height: 10%; margin-to: -100px; clear: both;">
 		<div class="row" style="margin: 0 !important;">
 			<div class="col text-center">
 				<span>Copyright &copy; CuraHealthyMe</span>

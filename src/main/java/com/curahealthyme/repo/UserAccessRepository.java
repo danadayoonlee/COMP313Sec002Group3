@@ -9,4 +9,7 @@ import com.curahealthyme.model.User_Logon;
 public interface UserAccessRepository  extends JpaRepository<UserAccess, Integer>{
 	@Query("SELECT u FROM UserAccess u WHERE u.UserAccessId = ?1")
     public UserAccess findById(long id);
+	
+	@Query("SELECT u.UserAccessId FROM UserAccess u WHERE u.UserRole = ?1")
+    public long findAccessIdByRole(String userrole);
 }

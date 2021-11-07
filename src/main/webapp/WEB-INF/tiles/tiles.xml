@@ -40,4 +40,8 @@
 		<put-attribute name="content"
 			value="/WEB-INF/success.jsp" />
 	</definition>
+		<definition name="findfamilydoctor" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/findfamilydoctor.jsp" />
+	</definition>
 </tiles-definitions>
