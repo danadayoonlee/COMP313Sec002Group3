@@ -27,7 +27,7 @@
 						</tr>
 						<tr>
 							<td>Family Doctor</td>
-							<td th:inline="text"></td>
+							<td th:inline="text">${familydoctor}</td>
 						</tr>
 						<tr>
 							<td colspan="2">

@@ -13,9 +13,6 @@ import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 
 import com.curahealthyme.repo.PatientRepository;
 
-//@SpringBootApplication
-//@ComponentScan(basePackages = {"com.curahealthyme.project", "com.curahealthyme.controller", "com.curahealthyme.model", "com.curahealthyme.repo"})
-//@EnableJpaRepositories("com.curahealthyme.repo")
 @SpringBootApplication   
 @EnableAutoConfiguration
 @ComponentScan(basePackages={"com.curahealthyme.project", "com.curahealthyme.controller"})

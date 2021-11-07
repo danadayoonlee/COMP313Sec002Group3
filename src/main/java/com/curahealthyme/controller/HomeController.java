@@ -12,14 +12,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.curahealthyme.model.MedicalStaff;
 import com.curahealthyme.model.Patient;
+import com.curahealthyme.model.Patient_Doctor_Join;
 import com.curahealthyme.model.User_Logon;
 import com.curahealthyme.repo.MedicalStaffRepository;
 import com.curahealthyme.repo.PatientRepository;
+import com.curahealthyme.repo.Patient_Doctor_JoinRepository;
 import com.curahealthyme.repo.UserAccessRepository;
 import com.curahealthyme.repo.User_LogonRepository;
 
 import org.springframework.web.bind.annotation.PathVariable;
-
+import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class HomeController {
 	
@@ -31,6 +33,8 @@ public class HomeController {
 	private MedicalStaffRepository medicalStaffRepo;
 	@Autowired
 	private User_LogonRepository userlogonRepo;
+	@Autowired
+	private Patient_Doctor_JoinRepository joinRepo;
 	
 	@RequestMapping(value= "/")
 	public String home(HttpServletRequest request, Model model) {
@@ -48,6 +52,13 @@ public class HomeController {
 				System.out.println("Patient");
 				Patient patient = patientRepo.findPatientByLoginId(Long.parseLong(loginid));
 				model.addAttribute("user", patient);
+				long id = joinRepo.getFamilyDoctorId(patient.getPatientId()) == null ? 0 : joinRepo.getFamilyDoctorId(patient.getPatientId()).getDoctorId();
+				if (id != 0)
+				{
+					String familydoctor = medicalStaffRepo.findById(id).getEmployeeName();
+					model.addAttribute("familydoctor",familydoctor);
+				}
+
 			}
 			if (userrole.equals("Doctor"))
 			{
@@ -99,12 +110,28 @@ public class HomeController {
 	
 	@RequestMapping(value="/findfamilydoctor/{patientId}")
 	public String updateCentrePage(Model model, @PathVariable("patientId") long patientId) {
-		Patient patient = patientRepo.findById(patientId).get();
+		
+		Patient patient = patientRepo.findById(patientId);
 		model.addAttribute("patient", patient);
 		long doctorAccessId = userAccessRepo.findAccessIdByRole("Doctor");
 		List<Long> loginIds = userlogonRepo.findUserLoginIdsByAccess(doctorAccessId);
 		List<MedicalStaff> doctors = medicalStaffRepo.findEmployeeByLoginIds(loginIds);
 		model.addAttribute("doctors",doctors);
 		return "findfamilydoctor";
+	}
+	@RequestMapping(value="/setfamilydoctor/{patientId}", method = RequestMethod.POST)
+	public String UpateFamilyDoctor(Model model, @PathVariable("patientId") long patientId, @RequestParam("familydoctor") String doctorId) {
+		Patient_Doctor_Join joinExist =joinRepo.getFamilyDoctorId(patientId);
+		if (joinExist != null)
+		{
+			joinExist.setDoctorId(Long.parseLong(doctorId));
+			joinRepo.save(joinExist);
+		} else {
+			Patient_Doctor_Join join = new Patient_Doctor_Join();
+			join.setPatientId(patientId);
+			join.setDoctorId(Long.parseLong(doctorId));
+			joinRepo.save(join);
+		}
+		return "redirect:/";
 	}
 }

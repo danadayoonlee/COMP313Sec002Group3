@@ -1,18 +1,49 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<div class="container">
+<div class="container" style="min-height: 100%">
 	<div class="row">
 		<div class="col">
-			<h3>Find Family Doctor</h3>
+			<h2>Find Family Doctor</h2>
 		</div>
 	</div>
 	<br />
 	<div class="row">
-	<div class="col">
-	<label>Available Physicians</label><br/>
-	<select class="form-select" id="familydoctor" name="familydoctor">
-	<option th:each="doctor: ${doctors}" th:value="${doctor.getEmployeeId()}" th:inline="text">${doctor.getEmployeeName()}</option>
-	</select>
+		<div class="col">
+			<h3>Patient Information</h3>
+		</div>
 	</div>
+	<hr />
+	<div class="row">
+		<div class="col">
+			<table class="table no-border">
+				<tr>
+					<td width="20%">Patient Name</td>
+					<td th:inline="text" width="80%">${patient.getName()}</td>
+				</tr>
+				<tr>
+					<td>Date of Birth</td>
+					<td th:inline="text">${patient.getDob()}</td>
+				</tr>
+			</table>
+		</div>
 	</div>
+	<br />
+	<form method="POST" action="/setfamilydoctor/${patient.getPatientId()}">
+		<div class="row">
+			<div class="col">
+				<label>Available Physicians</label><br /> <select
+					class="form-control" id="familydoctor" name="familydoctor">
+				      <c:forEach var = "i" begin = "0" end="${doctors.size()}">
+         <option value="${doctors.get(i).getEmployeeId()}" >${doctors.get(i).getEmployeeName()}<option>
+      </c:forEach>
+				</select>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col text-center">
+				<button type="submit" name="btnSetFamilyDoctor">Save</button>
+			</div>
+		</div>
+	</form>
+
 </div>
