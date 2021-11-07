@@ -1,5 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+
 <div id="container" style="min-height: 100%">
 	<div class="text-right">
 		<a href="/logout" title="logout">Logout</a>
