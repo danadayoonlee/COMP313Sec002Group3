@@ -12,7 +12,6 @@
 			<h3>Patient Information</h3>
 		</div>
 	</div>
-	<hr />
 	<div class="row">
 		<div class="col">
 			<table class="table no-border">
@@ -39,9 +38,10 @@
 				</select>
 			</div>
 		</div>
+		<br />
 		<div class="row">
 			<div class="col text-center">
-				<button type="submit" name="btnSetFamilyDoctor">Save</button>
+				<button class="btn btn-primary" type="submit" name="btnSetFamilyDoctor">Save</button>
 			</div>
 		</div>
 	</form>

@@ -41,12 +41,12 @@
 				<div class="in-line">
 					<div class="form-check">
 						<input class="form-check-input" type="radio" th:field="*{Gender}"
-							id="gendermale"  value="Male"> <label
-							class="form-check-label" for="gendermale"> Male </label>
+							id="gendermale" name="gender" value="Male"> <label
+							class="form-check-label" for="gendermale" > Male </label>
 					</div>
 					<div class="form-check">
 						<input class="form-check-input" type="radio" th:field="*{Gender}"
-							id="genderfemale" value="Female"> <label
+							id="genderfemale" name="gender" value="Female"> <label
 							class="form-check-label" for="genderfemale"> Female </label>
 					</div>
 				</div>
@@ -133,7 +133,7 @@
 		<br />
 		<div class="row">
 			<div class="col-6">
-				<label>Confirm Password</label> <input type="text"
+				<label>Confirm Password</label> <input type="password"
 					class="form-control" name="confirmpwd" id="confirmpwd" />
 			</div>
 		</div>
