@@ -22,18 +22,26 @@
 	<definition name="news" extends="partialview">
 		<put-attribute name="content" value="/WEB-INF/news.jsp" />
 	</definition>
-	
+
 	<definition name="contactus" extends="partialview">
 		<put-attribute name="content"
 			value="/WEB-INF/contactus.jsp" />
 	</definition>
-	
+
 	<definition name="login" extends="partialview">
 		<put-attribute name="content" value="/WEB-INF/login.jsp" />
 	</definition>
-	
+
 	<definition name="register" extends="partialview">
 		<put-attribute name="content"
 			value="/WEB-INF/register.jsp" />
+	</definition>
+	<definition name="success" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/success.jsp" />
+	</definition>
+	<definition name="findfamilydoctor" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/findfamilydoctor.jsp" />
 	</definition>
 </tiles-definitions>

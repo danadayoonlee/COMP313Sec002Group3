@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.curahealthyme.model.MedicalStaff;
 import com.curahealthyme.model.Patient;
+
 import com.curahealthyme.model.Patient_Doctor_Join;
 import com.curahealthyme.model.Patient_Medical_History;
 import com.curahealthyme.model.User_Logon;
@@ -19,11 +21,12 @@ import com.curahealthyme.repo.MedicalStaffRepository;
 import com.curahealthyme.repo.PatientRepository;
 import com.curahealthyme.repo.Patient_Doctor_JoinRepository;
 import com.curahealthyme.repo.Patient_Medical_HistoryRepository;
+
 import com.curahealthyme.repo.UserAccessRepository;
 import com.curahealthyme.repo.User_LogonRepository;
 
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+
 @Controller
 public class HomeController {
 	
@@ -35,6 +38,7 @@ public class HomeController {
 	private MedicalStaffRepository medicalStaffRepo;
 	@Autowired
 	private User_LogonRepository userlogonRepo;
+
 	@Autowired
 	private Patient_Doctor_JoinRepository joinRepo;
 	@Autowired
@@ -56,6 +60,7 @@ public class HomeController {
 				System.out.println("Patient");
 				Patient patient = patientRepo.findPatientByLoginId(Long.parseLong(loginid));
 				model.addAttribute("user", patient);
+
 				long id = joinRepo.getFamilyDoctorId(patient.getPatientId()) == null ? 0 : joinRepo.getFamilyDoctorId(patient.getPatientId()).getDoctorId();
 				if (id != 0)
 				{
@@ -63,13 +68,16 @@ public class HomeController {
 					model.addAttribute("familydoctor",familydoctor);
 				}
 				return "index";
+
 			}
 			if (userrole.equals("Doctor"))
 			{
 				System.out.println("Doctor");
 				MedicalStaff doctor = medicalStaffRepo.findEmployeeByLoginId(Long.parseLong(loginid));
 				model.addAttribute("user", doctor);
+
 				return "medicalstaffhome";
+
 			}
 			return "index";
 			
@@ -116,7 +124,6 @@ public class HomeController {
 	
 	@RequestMapping(value="/findfamilydoctor/{patientId}")
 	public String updateCentrePage(Model model, @PathVariable("patientId") long patientId) {
-		
 		Patient patient = patientRepo.findById(patientId);
 		model.addAttribute("patient", patient);
 		long doctorAccessId = userAccessRepo.findAccessIdByRole("Doctor");
@@ -125,6 +132,7 @@ public class HomeController {
 		model.addAttribute("doctors",doctors);
 		return "findfamilydoctor";
 	}
+
 	@RequestMapping(value="/setfamilydoctor/{patientId}", method = RequestMethod.POST)
 	public String UpateFamilyDoctor(Model model, @PathVariable("patientId") long patientId, @RequestParam("familydoctor") String doctorId) {
 		Patient_Doctor_Join joinExist =joinRepo.getFamilyDoctorId(patientId);
