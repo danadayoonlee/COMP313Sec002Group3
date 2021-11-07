@@ -36,4 +36,8 @@
 		<put-attribute name="content"
 			value="/WEB-INF/register.jsp" />
 	</definition>
+	<definition name="success" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/success.jsp" />
+	</definition>
 </tiles-definitions>
