@@ -40,7 +40,7 @@ li {
 		<%
 		}
 		%>
-		</div>
+		</div></div>
 		<br />
 		<div class="row" style="margin: 0 !important;">
 			<div class="col">
