@@ -10,15 +10,15 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col">
-				<label class="text-bold">Patient Name</label><span
-					th:text="${patient.Name}"></span><br /> <label class="text-bold">Date
-					of Birth</label><span th:text="${patient.DOB}"></span><br /> <label
-					class="text-bold">Address</label><span
-					th:text="${patient.Street}, ${patient.City}, ${patient.Province}, ${patient.Postal}"></span><br />
-				<label class="text-bold">Contact No.</label><span
-					th:text="${patient.Phone}"></span><br /> <label class="text-bold">Email</label><span
-					th:text="${patient.Email}"></span><br /> <label class="text-bold">Family
-					Doctor</label><span th:text="${familydoctor}"></span><br />
+				<label class="font-weight-bold">Patient Name</label>&nbsp;<span
+					th:inline="text">${patient.getName()}</span><br /> <label class="font-weight-bold">Date
+					of Birth</label>&nbsp;<span th:inline="text">${patient.getDob()}</span><br /> <label
+					class="font-weight-bold">Address</label>&nbsp;<span
+					th:inline="text">${patient.getStreet()}, ${patient.getCity()}, ${patient.getProvince()}, ${patient.getPostal()}</span><br />
+				<label class="font-weight-bold">Contact No.</label>&nbsp;<span
+					th:inline="text">${patient.getPhone()}</span><br /> <label class="font-weight-bold">Email</label>&nbsp;<span
+					th:inline="text">${patient.getEmail()}</span><br /> <label class="font-weight-bold">Family
+					Doctor</label>&nbsp;<span th:inline="text">${familydoctor}</span><br />
 			</div>
 		</div>
 	</div>
@@ -36,13 +36,14 @@
 		</thead>
 		<tbody>
 			<tr th:each="data: ${medicalhistory}">
-				<td th:text="${data.DateVisited}"></td>
-				<td th:text="${data.LocationOfVisit}"></td>
-				<td th:text="${data.ServicesDue}"></td>
+				<td th:inline="text">${data.getDateVisited()}</td>
+				<td  th:inline="text">${data.getLocationOfVisit()}</td>
+				<td th:inline="text">${data.getServicesDue()}</td>
 				<td></td>
-				<td th:text="${data.FollowUp}">Next Follow-up</td>
+				<td th:inline="text">${data.getFollowUp()}</td>
 				<td><a href="/viewpatientmedicaldetail/${data.Id}">View</a></td>
 			</tr>
+			
 		</tbody>
 	</table>
 </div>

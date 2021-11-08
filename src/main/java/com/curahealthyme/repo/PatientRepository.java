@@ -1,5 +1,7 @@
 package com.curahealthyme.repo;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
@@ -14,4 +16,6 @@ public interface PatientRepository  extends CrudRepository<Patient, Long>{
     public Patient findPatientByLoginId(long id);
 	@Query("SELECT u FROM Patient u WHERE u.PatientId = ?1")
     public Patient findById(long id);
+	@Query("SELECT u FROM Patient u WHERE u.PatientId in ?1")
+    public List<Patient> findByIds(List<Long> id);
 }

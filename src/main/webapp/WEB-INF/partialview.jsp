@@ -2,6 +2,7 @@
     pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html xmlns:th="http://www.thymeleaf.org" >
 <head>
 <link href="http://localhost:8083/webjars/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
@@ -17,11 +18,11 @@ li {
 </head>
 <body style = "background: white; height: 100%; color: black;">
 <div style="font-family: 'Poppins', sans-serif;   min-height: 85%">
-	<div class="row text-white" style="background-color: #181d45; min-height:20%; margin: 0 !important;">
+	<div class="row text-white" style="background-color: #181d45; margin: 0 !important;">
 		<div class="col-5">
-		<img src="http://localhost:8083/resources/static/img/logo.PNG" alt="CuraHealthyMe"/>
+		<img src="http://localhost:8083/resources/static/img/logo.PNG" alt="CuraHealthyMe" height="150px"/>
 		</div>
-		<div class="col-7 text-right" style="font-size:20px; padding: 10% 2% 0 0;">
+		<div class="col-7 text-right" style="font-size:20px;">
 		<a href="${pageContext.request.contextPath}/" style="color: white;">Home</a> |
 		<a href="${pageContext.request.contextPath}/aboutus" style="color: white;">About Us</a> |
 		<a href="${pageContext.request.contextPath}/contactus" style="color: white;">Contact Us</a> |

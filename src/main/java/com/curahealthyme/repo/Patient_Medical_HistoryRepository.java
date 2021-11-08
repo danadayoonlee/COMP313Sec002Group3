@@ -1,9 +1,17 @@
 package com.curahealthyme.repo;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+import com.curahealthyme.model.Patient_Doctor_Join;
 import com.curahealthyme.model.Patient_Medical_History;
 
-public interface Patient_Medical_HistoryRepository  extends JpaRepository<Patient_Medical_History, Integer>{
-
+@Repository
+public interface Patient_Medical_HistoryRepository  extends CrudRepository<Patient_Medical_History, Long>{
+	@Query("SELECT u FROM Patient_Medical_History u WHERE u.JoinId = ?1")
+    public List<Patient_Medical_History> getPatientMedicalHistory(long patientId);
 }

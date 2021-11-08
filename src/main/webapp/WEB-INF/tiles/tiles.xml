@@ -44,4 +44,17 @@
 		<put-attribute name="content"
 			value="/WEB-INF/findfamilydoctor.jsp" />
 	</definition>
+	<definition name="viewpatientmedicalinfolist"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/viewpatientmedicalinfolist.jsp" />
+	</definition>
+	<definition name="medicalstaffhome" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/medicalstaffhome.jsp" />
+	</definition>
+		<definition name="patientlist" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/patientlist.jsp" />
+	</definition>
 </tiles-definitions>

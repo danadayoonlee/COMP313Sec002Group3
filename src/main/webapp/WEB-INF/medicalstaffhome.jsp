@@ -7,7 +7,7 @@
 	<br />
 	<div class="row">
 		<div class="col">
-			<h3>Patient Information</h3>
+			<h3>Welcome, ${USERNAME}</h3>
 		</div>
 	</div>
 	<br />
@@ -15,24 +15,12 @@
 		<div class="col">
 			<table class="table no-border">
 				<tr>
-					<td width="20%">Patient Name</td>
-					<td th:inline="text" width="80%">${user.getName()}</td>
+					<td width="20%">Employee Name</td>
+					<td th:inline="text" width="80%">${user.getEmployeeName()}</td>
 				</tr>
 				<tr>
 					<td>Date of Birth</td>
 					<td th:inline="text">${user.getDob()}</td>
-				</tr>
-				<tr>
-					<td>Health Card NUmber</td>
-					<td th:inline="text"></td>
-				</tr>
-				<tr>
-					<td>Health Card Expiry</td>
-					<td th:inline="text"></td>
-				</tr>
-				<tr>
-					<td>Family Doctor</td>
-					<td th:inline="text">${familydoctor}</td>
 				</tr>
 				<tr>
 					<td colspan="2">
@@ -40,32 +28,31 @@
 							<div class="row">
 								<div class="col-4">
 									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/findfamilydoctor/${user.getPatientId()}"
-										title="find family doctor">Find Family Doctor</a>
+										href="/viewmypatients/${user.getEmployeeId()}"
+										title="View My Patients">View My Patients</a>
 								</div>
 								<div class="col-4">
 									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/viewmedicalhistory/${user.getPatientId()}"
-										title="View Medical History">View Medical History</a>
+										href="/viewallpatients" title="View All Patients">View All
+										Patients</a>
 								</div>
 								<div class="col-4">
 									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/viewtestrequisitions/${user.getPatientId()}"
-										title="View My Test Requisitions">View My Test
-										Requisitions</a>
+										href="/sendprescription" title="Send Prescriptions">Send
+										Prescription</a>
 								</div>
 							</div>
 							<br />
 							<div class="row">
 								<div class="col-4">
 									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/viewtestresults/${user.getPatientId()}"
-										title="View My Test Results">View My Test Results</a>
+										href="/sendtestrequisition" title="Send Test Requisitions">Send
+										Test Requisition</a>
 								</div>
 								<div class="col-4">
 									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/viewpatientprescriptions/${user.getPatientId()}"
-										title="View My Prescriptions">View My Prescriptions</a>
+										href="/sendtestresult" title="Send Test Requisitions">Send
+										Test result</a>
 								</div>
 							</div>
 						</div>
@@ -75,3 +62,4 @@
 		</div>
 	</div>
 </div>
+
