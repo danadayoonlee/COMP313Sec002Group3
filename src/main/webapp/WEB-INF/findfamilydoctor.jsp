@@ -32,8 +32,8 @@
 			<div class="col">
 				<label>Available Physicians</label><br /> <select
 					class="form-control" id="familydoctor" name="familydoctor">
-				      <c:forEach var = "i" begin = "0" end="${doctors.size()}">
-         <option value="${doctors.get(i).getEmployeeId()}" >${doctors.get(i).getEmployeeName()}<option>
+				      <c:forEach items="${doctors}" var="i">  
+         <option value="${doctors.get(i).getEmployeeId()}" >${doctors.get(i).getEmployeeName()}</option>
       </c:forEach>
 				</select>
 			</div>

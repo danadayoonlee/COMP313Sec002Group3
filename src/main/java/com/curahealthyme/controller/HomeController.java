@@ -171,7 +171,6 @@ public class HomeController {
 	public String GetPatientsByDoctor(Model model,@PathVariable("employeeId") long employeeId)
 	{
 		List<Long> patientIds =joinRepo.getDataByDoctor(employeeId);
-
 		List<Patient> patients = (List<Patient>) patientRepo.findByIds(patientIds);
 		model.addAttribute("patients", patients);
 		return "patientlist";
