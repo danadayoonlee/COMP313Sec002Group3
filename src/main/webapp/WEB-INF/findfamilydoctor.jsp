@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <div class="container" style="min-height: 100%">
 	<div class="row">
 		<div class="col">
@@ -30,11 +31,11 @@
 	<form method="POST" action="/setfamilydoctor/${patient.getPatientId()}">
 		<div class="row">
 			<div class="col">
-				<label>Available Physicians</label><br /> <select
-					class="form-control" id="familydoctor" name="familydoctor">
-				      <c:forEach items="${doctors}" var="i">  
-         <option value="${doctors.get(i).getEmployeeId()}" >${doctors.get(i).getEmployeeName()}</option>
-      </c:forEach>
+				<label>Available Physicians</label><br />
+				<select class="form-control" id="familydoctor" name="familydoctor">
+					<c:forEach items="${doctors}" var = "i" >
+         				<option value="${i.getEmployeeId()}">${i.getEmployeeName()}</option>
+      				</c:forEach>
 				</select>
 			</div>
 		</div>
