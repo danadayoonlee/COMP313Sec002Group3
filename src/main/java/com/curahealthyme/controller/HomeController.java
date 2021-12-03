@@ -218,6 +218,7 @@ public class HomeController {
 		patientDataRepo.save(data);
 		return new ModelAndView("redirect:/viewmedicalhistory/" + patientId);
 	}
+	
 	@RequestMapping(value="/viewpatientmedicaldetail/{id}/patient/{patientId}")
 	public String ViewPatientMedicalVisitDetail(Model model, @PathVariable("id") long id, @PathVariable("patientId") long patientId)
 	{

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE tiles-definitions PUBLIC
-       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
-       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+      "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN" 
+      "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
 
 <tiles-definitions>
 
@@ -53,8 +53,18 @@
 		<put-attribute name="content"
 			value="/WEB-INF/medicalstaffhome.jsp" />
 	</definition>
-		<definition name="patientlist" extends="partialview">
+	<definition name="patientlist" extends="partialview">
 		<put-attribute name="content"
 			value="/WEB-INF/patientlist.jsp" />
+	</definition>
+	<definition name="addpatientmedicaldata"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/addpatientmedicaldata.jsp" />
+	</definition>
+	<definition name="patientmedicaldetailpage"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/patientmedicaldetailpage.jsp" />
 	</definition>
 </tiles-definitions>
