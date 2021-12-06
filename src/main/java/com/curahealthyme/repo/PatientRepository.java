@@ -15,7 +15,7 @@ public interface PatientRepository  extends CrudRepository<Patient, Long>{
 	@Query("SELECT u FROM Patient u WHERE u.LoginId = ?1")
     public Patient findPatientByLoginId(long id);
 	@Query("SELECT u FROM Patient u WHERE u.PatientId = ?1")
-    public Patient findById(long id);
+    public Patient findByPatientId(long id);
 	@Query("SELECT u FROM Patient u WHERE u.PatientId in ?1")
     public List<Patient> findByIds(List<Long> id);
 }

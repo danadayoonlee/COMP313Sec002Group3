@@ -7,6 +7,12 @@
 	<br />
 	<div class="row">
 		<div class="col">
+			<h3>Welcome, ${USERNAME}</h3>
+		</div>
+	</div>
+	<br />
+	<div class="row">
+		<div class="col">
 			<h3>Patient Information</h3>
 		</div>
 	</div>

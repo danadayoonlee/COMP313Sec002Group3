@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -13,7 +14,7 @@ import javax.persistence.Table;
 public class Patient_Medical_History {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long Id;
 	
@@ -41,14 +42,23 @@ public class Patient_Medical_History {
 	@Column(name = "locationofvisit")
 	public String LocationOfVisit;
 
-	@Column(name = "diseaseid")
-	public long DiseaseId;
 	
 	@Column(name = "treatment")
 	public String Treatment;
 
 	@Column(name = "followup")
 	public Date FollowUp;
+	
+	@Column(name= "doctorid")
+	public long DoctorId;
+
+	public long getDoctorId() {
+		return DoctorId;
+	}
+
+	public void setDoctorId(long doctorId) {
+		DoctorId = doctorId;
+	}
 
 	public long getId() {
 		return Id;
@@ -120,14 +130,6 @@ public class Patient_Medical_History {
 
 	public void setLocationOfVisit(String locationOfVisit) {
 		LocationOfVisit = locationOfVisit;
-	}
-	
-	public long getDiseaseId() {
-		return DiseaseId;
-	}
-
-	public void setDiseaseId(long diseaseId) {
-		DiseaseId = diseaseId;
 	}
 	
 	public String getTreatment() {

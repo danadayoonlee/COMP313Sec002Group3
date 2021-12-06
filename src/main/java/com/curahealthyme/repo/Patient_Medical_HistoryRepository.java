@@ -14,4 +14,6 @@ import com.curahealthyme.model.Patient_Medical_History;
 public interface Patient_Medical_HistoryRepository  extends CrudRepository<Patient_Medical_History, Long>{
 	@Query("SELECT u FROM Patient_Medical_History u WHERE u.JoinId = ?1")
     public List<Patient_Medical_History> getPatientMedicalHistory(long patientId);
+	@Query("SELECT u FROM Patient_Medical_History u WHERE u.Id = ?1")
+    public Patient_Medical_History findByMedicalDataId(long id);
 }

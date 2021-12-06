@@ -17,4 +17,8 @@ public interface Patient_Doctor_JoinRepository  extends CrudRepository<Patient_D
 	
 	@Query("SELECT u.PatientId FROM Patient_Doctor_Join u WHERE u.DoctorId = ?1")
     public List<Long> getDataByDoctor(long doctorId);
+	@Query("SELECT u.Id FROM Patient_Doctor_Join u WHERE u.DoctorId = ?1 AND u.PatientId = ?2")
+    public long getJoinIdBypatientdoctorId(long doctorId, long patientId);
+	@Query("SELECT u FROM Patient_Doctor_Join u WHERE u.Id = ?1")
+    public Patient_Doctor_Join findByJoinId(long id);
 }

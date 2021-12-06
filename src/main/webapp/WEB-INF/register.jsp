@@ -2,8 +2,7 @@
 	pageEncoding="ISO-8859-1"%>
 <div class="container">
 
-	<form method="post" action="/register" th:object=${patient
-		}
+	<form method="post" action="/register" th:object=${patient}
 		style="width: 80%; margin-left: auto; margin-right: auto;">
 		<div class="form-row">
 			<div class="col text-center">
