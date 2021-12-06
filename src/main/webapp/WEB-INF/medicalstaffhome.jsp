@@ -38,8 +38,7 @@
 								</div>
 								<div class="col-4">
 									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/sendprescription" title="Send Prescriptions">Send
-										Prescription</a>
+										href="/uploadeddocuments" title="Uploaded Documents">Uploaded Documents</a>
 								</div>
 							</div>
 							<br />

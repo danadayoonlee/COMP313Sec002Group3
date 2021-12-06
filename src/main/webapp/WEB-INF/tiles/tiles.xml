@@ -67,4 +67,14 @@
 		<put-attribute name="content"
 			value="/WEB-INF/patientmedicaldetailpage.jsp" />
 	</definition>
+		<definition name="uploaddocument"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/uploaddocument.jsp" />
+	</definition>
+			<definition name="viewpatientdocuments"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/viewpatientdocuments.jsp" />
+	</definition>
 </tiles-definitions>

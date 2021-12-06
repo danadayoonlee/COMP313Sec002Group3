@@ -15,7 +15,7 @@ import com.curahealthyme.repo.PatientRepository;
 
 @SpringBootApplication   
 @EnableAutoConfiguration
-@ComponentScan(basePackages={"com.curahealthyme.project", "com.curahealthyme.controller"})
+@ComponentScan(basePackages={"com.curahealthyme.project", "com.curahealthyme.controller","com.curahealthyme.s3utility"})
 @EnableJpaRepositories(basePackages="com.curahealthyme.repo")
 @EnableTransactionManagement
 @EntityScan(basePackages="com.curahealthyme.model")

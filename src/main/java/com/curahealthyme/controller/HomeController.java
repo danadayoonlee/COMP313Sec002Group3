@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.curahealthyme.model.MedicalStaff;
 import com.curahealthyme.model.Patient;
+import com.curahealthyme.model.PatientDocument;
 import com.curahealthyme.model.Patient_Doctor_Join;
 import com.curahealthyme.model.Patient_Medical_History;
 import com.curahealthyme.model.User_Logon;
 import com.curahealthyme.repo.MedicalStaffRepository;
+import com.curahealthyme.repo.PatientDocumentRepository;
 import com.curahealthyme.repo.PatientRepository;
 import com.curahealthyme.repo.Patient_Doctor_JoinRepository;
 import com.curahealthyme.repo.Patient_Medical_HistoryRepository;
@@ -43,6 +45,8 @@ public class HomeController {
 	private Patient_Doctor_JoinRepository joinRepo;
 	@Autowired
 	private Patient_Medical_HistoryRepository patientDataRepo;
+	@Autowired
+	private PatientDocumentRepository patientDocumentRepo;
 
 	@RequestMapping(value = "/")
 	public String home(HttpServletRequest request, Model model) {
@@ -232,5 +236,44 @@ public class HomeController {
 		model.addAttribute("familydoctor", familydoctor);
 		return "patientmedicaldetailpage";
 		
+	}
+	@RequestMapping(value="/uploaddocument/{patientId}")
+	public String UploadDocumentPage(HttpServletRequest request, Model model, @PathVariable("patientId") long patientId)
+	{
+		String loginid = request.getSession().getAttribute("LoginId").toString();
+		MedicalStaff doctor = medicalStaffRepo.findEmployeeByLoginId(Long.parseLong(loginid));
+		model.addAttribute("doctor", doctor.getEmployeeId());
+		Patient patient = patientRepo.findByPatientId(patientId);
+		model.addAttribute("patient", patient);
+		return "uploaddocument";
+	}
+	@RequestMapping(value="/uploadeddocuments")
+	public String UploadedDocumentsPage(Model model)
+	{
+		List<PatientDocument> docs = (List<PatientDocument>) patientDocumentRepo.findAll();
+		model.addAttribute("documents", docs);
+		return "viewpatientdocuments";
+		
+	}
+	@RequestMapping(value="/viewtestrequisitions/{patientId}")
+	public String ViewTestRequisition(Model model, @PathVariable("patientId") long patientId)
+	{
+		List<PatientDocument> docs = patientDocumentRepo.findDocumentsByType(patientId, "test-requisition");
+		model.addAttribute("documents", docs);
+		return "viewpatientdocuments";
+	}
+	@RequestMapping(value="/viewtestresults/{patientId}")
+	public String ViewTestResults(Model model, @PathVariable("patientId") long patientId)
+	{
+		List<PatientDocument> docs = patientDocumentRepo.findDocumentsByType(patientId, "test-result");
+		model.addAttribute("documents", docs);
+		return "viewpatientdocuments";
+	}
+	@RequestMapping(value="/viewpatientprescriptions/{patientId}")
+	public String ViewPatientPrescriptions(Model model, @PathVariable("patientId") long patientId)
+	{
+		List<PatientDocument> docs = patientDocumentRepo.findDocumentsByType(patientId, "prescription");
+		model.addAttribute("documents", docs);
+		return "viewpatientdocuments";
 	}
 }

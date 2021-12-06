@@ -11,7 +11,7 @@
 	<br>
 	<div class="container-fluid">
 		<div class="row">
-			<div class="col-8">
+			<div class="col-6">
 				<label class="font-weight-bold">Patient Name</label>&nbsp;<span
 					th:inline="text">${patient.getName()}</span><br /> <label
 					class="font-weight-bold">Date of Birth</label>&nbsp;<span
@@ -26,7 +26,10 @@
 					class="font-weight-bold">Family Doctor</label>&nbsp;<span
 					th:inline="text">${familydoctor}</span><br />
 			</div>
-			<div class="col-4" height="100%">
+						<div class="col-3" height="100%">
+			<a href="/uploaddocument/${patient.getPatientId()}" class="btn btn-primary" alt="Upload Document" style="bottom:0;position:absolute;right:0;">Upload Document</a>
+			</div>
+			<div class="col-3" height="100%">
 			<a href="/addpatientmedicaldata/${patient.getPatientId()}" class="btn btn-primary" alt="Add Patient Medical Info" style="bottom:0;position:absolute;right:0;">+ Add Patient Medical Info</a>
 			</div>
 		</div>
