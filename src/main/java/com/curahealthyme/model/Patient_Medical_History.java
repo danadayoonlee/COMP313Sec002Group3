@@ -22,7 +22,7 @@ public class Patient_Medical_History {
 	public long JoinId;
 
 	@Column(name = "datevisited")
-	public Date DateVisited;
+	public String DateVisited;
 	
 	@Column(name = "reasonforvisit")
 	public String ReasonForVisit;
@@ -42,12 +42,14 @@ public class Patient_Medical_History {
 	@Column(name = "locationofvisit")
 	public String LocationOfVisit;
 
+	@Column(name = "diseaseid")
+	public long DiseaseId;
 	
 	@Column(name = "treatment")
 	public String Treatment;
 
 	@Column(name = "followup")
-	public Date FollowUp;
+	public String FollowUp;
 	
 	@Column(name= "doctorid")
 	public long DoctorId;
@@ -76,12 +78,12 @@ public class Patient_Medical_History {
 		JoinId = joinId;
 	}
 
-	public Date getDateVisited() {
+	public String getDateVisited() {
 		return DateVisited;
 	}
 
-	public void setDateVisited(Date dateVisited) {
-		DateVisited = dateVisited;
+	public void setDateVisited(String string) {
+		DateVisited = string;
 	}
 	
 	public String getReasonForVisit() {
@@ -140,14 +142,22 @@ public class Patient_Medical_History {
 		Treatment = treatment;
 	}
 	
-	public Date getFollowUp() {
+	public String getFollowUp() {
 		return FollowUp;
 	}
 
-	public void setFollowUp(Date followUp) {
-		FollowUp = followUp;
+	public void setFollowUp(String string) {
+		FollowUp = string;
 	}
 
 	public Patient_Medical_History() {
+	}
+
+    public Integer getDiseaseId() {
+		return (int) DiseaseId;
+	}
+
+	public void setDiseaseId(long diseaseId) {
+		DiseaseId = diseaseId;
 	}
 }
