@@ -77,4 +77,21 @@
 		<put-attribute name="content"
 			value="/WEB-INF/viewpatientdocuments.jsp" />
 	</definition>
+
+	<definition name="history" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/addpatientmedicaldata.jsp" />
+	</definition>
+	<definition name="updatepatientmedicaldata" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/updatepatientmedicaldata.jsp" />
+	</definition>
+	<definition name="historyview" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/addpatientmedicaldataview.jsp" />
+	</definition>
+	<definition name="notification" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/notification.jsp" />
+	</definition>
 </tiles-definitions>

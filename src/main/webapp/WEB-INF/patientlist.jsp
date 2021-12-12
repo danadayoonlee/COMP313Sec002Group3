@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="container" style="min-height: 100%;">
 	<div class="row">
 		<div class="col">
@@ -20,26 +20,23 @@
 		</thead>
 
 		<tbody>
-			<c:choose>
-				<c:when test="${patients.size() > 0}">
-					<c:forEach var="i" items="${patients}">
-						<tr>
-							<td th:inline="text">${i.getName()}</td>
-							<td th:inline="text">${i.getDob()}</td>
-							<td th:inline="text">${i.getPhone()}</td>
-							<td th:inline="text"></td>
-							<td th:inline="text"><a
-								href="/viewmedicalhistory/${i.getPatientId()}">View</a></td>
-						</tr>
-					</c:forEach>
-				</c:when>
-				<c:otherwise>
-					<tr>
-						<td colspan="6" class="text-center">No patients found!</td>
-					</tr>
-				</c:otherwise>
-			</c:choose>
-
+			<c:forEach var="patient" items="${patients}">
+				<tr>
+					<td th:inline="text">${patient.getName()}</td>
+					<td th:inline="text">${patient.getDob()}</td>
+					<td th:inline="text">${patient.getPhone()}</td>
+					<td th:inline="text"></td>
+					<td th:inline="text">
+						<a class="btn btn-secondary  btn-xs"
+										href="/historyview/${patient.getPatientId()}"
+										title="find family doctor" style="display:${histrySize}">View</a>
+					
+						<a class="btn btn-secondary  btn-xs"
+										href="/history/${patient.getPatientId()}"
+										title="find family doctor">Modify</a>
+					</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>

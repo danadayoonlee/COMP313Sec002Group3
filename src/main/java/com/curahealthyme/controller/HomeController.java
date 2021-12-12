@@ -1,6 +1,10 @@
 package com.curahealthyme.controller;
 
-import java.sql.Date;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +16,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.curahealthyme.model.Disease;
 import com.curahealthyme.model.MedicalStaff;
+import com.curahealthyme.model.Notification;
 import com.curahealthyme.model.Patient;
 import com.curahealthyme.model.PatientDocument;
 import com.curahealthyme.model.Patient_Doctor_Join;
 import com.curahealthyme.model.Patient_Medical_History;
 import com.curahealthyme.model.User_Logon;
+import com.curahealthyme.repo.DiseaseRepository;
 import com.curahealthyme.repo.MedicalStaffRepository;
 import com.curahealthyme.repo.PatientDocumentRepository;
 import com.curahealthyme.repo.PatientRepository;
@@ -47,7 +54,9 @@ public class HomeController {
 	private Patient_Medical_HistoryRepository patientDataRepo;
 	@Autowired
 	private PatientDocumentRepository patientDocumentRepo;
-
+	@Autowired
+	private DiseaseRepository diseaseRepository;
+	
 	@RequestMapping(value = "/")
 	public String home(HttpServletRequest request, Model model) {
 
@@ -165,9 +174,13 @@ public class HomeController {
 		return "viewpatientmedicalinfolist";
 	}
 
-	@RequestMapping(value = "/viewallpatients")
-	public String GetAllPatients(Model model) {
+	@RequestMapping(value="/viewallpatients")
+	public String GetAllPatients(Model model)
+	{
 		List<Patient> patients = (List<Patient>) patientRepo.findAll();
+		List<Patient_Medical_History> histories = patientDataRepo.findAll();
+		
+		model.addAttribute("histrySize",histories.size()>0 ? "" : "none");
 		model.addAttribute("patients", patients);
 		return "patientlist";
 	}
@@ -196,47 +209,7 @@ public class HomeController {
 
 	}
 
-	@RequestMapping(value = "/addpatientdata/{patientId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-	public ModelAndView AddPatientMedicalInfoData(Model model, HttpServletRequest request,
-			@RequestParam("reasonforvisit") String reasonForVisit, @RequestParam("problems") String problems,
-			@RequestParam("medications") String medications, @RequestParam("allergies") String allergies,
-			@RequestParam("treatment") String treatment, @RequestParam("servicedue") String servicedue,
-			@RequestParam("visitlocation") String visitlocation, @RequestParam("followup") Date followup,
-			@PathVariable("patientId") long patientId) {
-		
-		long joinId = joinRepo.getFamilyDoctorId(patientId).getId();
-		String loginid = request.getSession().getAttribute("LoginId").toString();
-		long doctorId = medicalStaffRepo.findEmployeeByLoginId(Long.parseLong(loginid)).getEmployeeId();
-		Patient_Medical_History data = new Patient_Medical_History();
-		data.setReasonForVisit(reasonForVisit);
-		data.setProblems(problems);
-		data.setMedications(medications);
-		data.setAllergies(allergies);
-		data.setServicesDue(servicedue);
-		data.setLocationOfVisit(visitlocation);
-		data.setTreatment(treatment);
-		data.setFollowUp(followup);
-		data.setDateVisited(new Date(System.currentTimeMillis()));
-		data.setDoctorId(doctorId);
-		data.setJoinId(joinId);
-		patientDataRepo.save(data);
-		return new ModelAndView("redirect:/viewmedicalhistory/" + patientId);
-	}
 	
-	@RequestMapping(value="/viewpatientmedicaldetail/{id}/patient/{patientId}")
-	public String ViewPatientMedicalVisitDetail(Model model, @PathVariable("id") long id, @PathVariable("patientId") long patientId)
-	{
-		Patient_Medical_History data = patientDataRepo.findByMedicalDataId(id);
-		model.addAttribute("medicaldata",data);
-		Patient patient = patientRepo.findByPatientId(patientId);
-		model.addAttribute("patient", patient);
-		String name = medicalStaffRepo.findByMedicalStaffId(data.getDoctorId()).getEmployeeName();
-		model.addAttribute("doctor", name);
-		String familydoctor = medicalStaffRepo.findByMedicalStaffId(joinRepo.getFamilyDoctorId(patientId).getDoctorId()).getEmployeeName();
-		model.addAttribute("familydoctor", familydoctor);
-		return "patientmedicaldetailpage";
-		
-	}
 	@RequestMapping(value="/uploaddocument/{patientId}")
 	public String UploadDocumentPage(HttpServletRequest request, Model model, @PathVariable("patientId") long patientId)
 	{
@@ -275,5 +248,110 @@ public class HomeController {
 		List<PatientDocument> docs = patientDocumentRepo.findDocumentsByType(patientId, "prescription");
 		model.addAttribute("documents", docs);
 		return "viewpatientdocuments";
+	}
+
+	@RequestMapping(value="/history/{employeeId}")
+	public String addPatientMedicalData(Model model,@PathVariable("employeeId") long employeeId) 
+	{
+		Patient_Medical_History patientdata =  patientDataRepo.findByJoinId(employeeId);
+		
+		if(patientdata == null) {
+			
+			Date d = new Date();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+			String s = sdf.format(d);
+			
+			List<Disease> diseases = diseaseRepository.findAll();
+			model.addAttribute("patientmedicalinfo", new Patient_Medical_History());
+			model.addAttribute("patient",patientRepo.findById(employeeId));
+			model.addAttribute("date",s);
+			model.addAttribute("diseases",diseases);
+			
+			return "addpatientmedicaldata";
+		}
+		else {
+			
+			patientdata.setDateVisited(patientdata.getDateVisited().isEmpty() ? "" : patientdata.getDateVisited().substring(0, 10));
+			patientdata.setFollowUp(patientdata.getFollowUp().isEmpty() ? "" : patientdata.getFollowUp().substring(0,10));
+			
+			List<Disease> diseases = diseaseRepository.findAll();
+			model.addAttribute("patientmedicalinfo", patientdata);
+			model.addAttribute("patient",patientRepo.findById(employeeId));
+			model.addAttribute("diseases",diseases);
+			
+			return "updatepatientmedicaldata";
+		}
+	}
+	
+	
+	@RequestMapping(value="/addpatientdata/{patientId}", method = RequestMethod.POST)
+	public String UpatePatientHistry(Patient_Medical_History history, Model model, @PathVariable("patientId") long patientId) {
+		Patient_Medical_History joinExist =patientDataRepo.findByJoinId(patientId);
+		if (joinExist != null)
+		{
+			
+			joinExist.setAllergies(history.getAllergies());
+			joinExist.setDateVisited(history.getDateVisited().toString());
+			joinExist.setFollowUp(history.getFollowUp().toString());
+			joinExist.setLocationOfVisit(history.getLocationOfVisit());
+			joinExist.setMedications(history.getMedications());
+			joinExist.setProblems(history.getProblems());
+			joinExist.setReasonForVisit(history.getReasonForVisit());
+			joinExist.setServicesDue(history.getServicesDue());
+			joinExist.setTreatment(history.getTreatment());
+			
+			patientDataRepo.save(joinExist);
+		} else {
+			Patient_Medical_History join = new Patient_Medical_History();
+	
+			Disease disease = diseaseRepository.getById(history.getDiseaseId());
+			
+			join.setAllergies(history.getAllergies());
+			join.setDateVisited(history.getDateVisited().toString());
+			join.setFollowUp(history.getFollowUp().toString());
+			join.setLocationOfVisit(history.getLocationOfVisit());
+			join.setMedications(history.getMedications());
+			join.setProblems(history.getProblems());
+			join.setReasonForVisit(history.getReasonForVisit());
+			join.setServicesDue(history.getServicesDue());
+			join.setTreatment(history.getTreatment());
+			join.setDiseaseId(disease.getDiseaseId());
+			join.setJoinId(patientId);
+			
+			patientDataRepo.save(join);
+		}
+		return "redirect:/viewallpatients";
+	}
+	
+	@RequestMapping(value="/historyview/{employeeId}")
+	public String addPatientMedicalViewData(Model model,@PathVariable("employeeId") long employeeId)
+	{
+		Patient_Medical_History patientdata =  patientDataRepo.findByJoinId(employeeId);
+		
+		patientdata.setDateVisited(patientdata.getDateVisited().isEmpty() ? "" : patientdata.getDateVisited().substring(0, 10));
+		patientdata.setFollowUp(patientdata.getFollowUp().isEmpty() ? "" : patientdata.getFollowUp().substring(0,10));
+		
+		List<Disease> diseases = diseaseRepository.findAll();
+		model.addAttribute("patientmedicalinfo", patientdata);
+		model.addAttribute("patient",patientRepo.findById(employeeId));
+		model.addAttribute("diseases",diseases);
+		return "addpatientmedicaldataview";
+	}
+	
+	@RequestMapping(value="/notification")
+	public String GetNotification(Model model) throws ParseException
+	{
+		Date d = new Date();
+		List<Patient_Medical_History> patients = patientDataRepo.findAll();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		String s = sdf.format(d);
+		List<Notification> data = new ArrayList<>();
+		for(Patient_Medical_History p : patients) {
+			data.add(new Notification(patientRepo.findById(p.getJoinId()).getName(),
+					p.getFollowUp().substring(0, 10),sdf.parse(s).equals(sdf.parse(p.getFollowUp())) ? "Need Check Up":"Don't Need Check Up"));
+		}
+		
+		model.addAttribute("patients", data);
+		return "notification";
 	}
 }

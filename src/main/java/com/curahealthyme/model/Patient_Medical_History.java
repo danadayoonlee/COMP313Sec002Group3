@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Patient_Medical_History {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	 @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long Id;
 	
@@ -22,7 +22,7 @@ public class Patient_Medical_History {
 	public long JoinId;
 
 	@Column(name = "datevisited")
-	public Date DateVisited;
+	public String DateVisited;
 	
 	@Column(name = "reasonforvisit")
 	public String ReasonForVisit;
@@ -42,23 +42,14 @@ public class Patient_Medical_History {
 	@Column(name = "locationofvisit")
 	public String LocationOfVisit;
 
+	@Column(name = "diseaseid")
+	public long DiseaseId;
 	
 	@Column(name = "treatment")
 	public String Treatment;
 
 	@Column(name = "followup")
-	public Date FollowUp;
-	
-	@Column(name= "doctorid")
-	public long DoctorId;
-
-	public long getDoctorId() {
-		return DoctorId;
-	}
-
-	public void setDoctorId(long doctorId) {
-		DoctorId = doctorId;
-	}
+	public String FollowUp;
 
 	public long getId() {
 		return Id;
@@ -76,11 +67,11 @@ public class Patient_Medical_History {
 		JoinId = joinId;
 	}
 
-	public Date getDateVisited() {
+	public String getDateVisited() {
 		return DateVisited;
 	}
 
-	public void setDateVisited(Date dateVisited) {
+	public void setDateVisited(String dateVisited) {
 		DateVisited = dateVisited;
 	}
 	
@@ -132,6 +123,14 @@ public class Patient_Medical_History {
 		LocationOfVisit = locationOfVisit;
 	}
 	
+	public long getDiseaseId() {
+		return DiseaseId;
+	}
+
+	public void setDiseaseId(long diseaseId) {
+		DiseaseId = diseaseId;
+	}
+	
 	public String getTreatment() {
 		return Treatment;
 	}
@@ -140,11 +139,11 @@ public class Patient_Medical_History {
 		Treatment = treatment;
 	}
 	
-	public Date getFollowUp() {
+	public String getFollowUp() {
 		return FollowUp;
 	}
 
-	public void setFollowUp(Date followUp) {
+	public void setFollowUp(String followUp) {
 		FollowUp = followUp;
 	}
 
