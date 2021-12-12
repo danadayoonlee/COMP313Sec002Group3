@@ -45,13 +45,7 @@
 							<div class="row">
 								<div class="col-4">
 									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/sendtestrequisition" title="Send Test Requisitions">Send
-										Test Requisition</a>
-								</div>
-								<div class="col-4">
-									<a class="btn btn-secondary  btn-lg btn-block"
-										href="/sendtestresult" title="Send Test Requisitions">Send
-										Test result</a>
+										href="/setavailabletime/${user.getEmployeeId()}" title="Set Available Time">Update Availability</a>
 								</div>
 							</div>
 						</div>

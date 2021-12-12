@@ -1,6 +1,12 @@
 package com.curahealthyme.controller;
 
 import java.sql.Date;
+import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,12 +18,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.curahealthyme.model.Appointments;
+import com.curahealthyme.model.DoctorSchedule;
 import com.curahealthyme.model.MedicalStaff;
 import com.curahealthyme.model.Patient;
 import com.curahealthyme.model.PatientDocument;
 import com.curahealthyme.model.Patient_Doctor_Join;
 import com.curahealthyme.model.Patient_Medical_History;
 import com.curahealthyme.model.User_Logon;
+import com.curahealthyme.repo.AppointmentsRepository;
+import com.curahealthyme.repo.DoctorScheduleRepository;
 import com.curahealthyme.repo.MedicalStaffRepository;
 import com.curahealthyme.repo.PatientDocumentRepository;
 import com.curahealthyme.repo.PatientRepository;
@@ -47,6 +57,10 @@ public class HomeController {
 	private Patient_Medical_HistoryRepository patientDataRepo;
 	@Autowired
 	private PatientDocumentRepository patientDocumentRepo;
+	@Autowired
+	private DoctorScheduleRepository doctorScheduleRepo;
+	@Autowired
+	private AppointmentsRepository appointmentsRepo;
 
 	@RequestMapping(value = "/")
 	public String home(HttpServletRequest request, Model model) {
@@ -203,7 +217,7 @@ public class HomeController {
 			@RequestParam("treatment") String treatment, @RequestParam("servicedue") String servicedue,
 			@RequestParam("visitlocation") String visitlocation, @RequestParam("followup") Date followup,
 			@PathVariable("patientId") long patientId) {
-		
+
 		long joinId = joinRepo.getFamilyDoctorId(patientId).getId();
 		String loginid = request.getSession().getAttribute("LoginId").toString();
 		long doctorId = medicalStaffRepo.findEmployeeByLoginId(Long.parseLong(loginid)).getEmployeeId();
@@ -222,7 +236,7 @@ public class HomeController {
 		patientDataRepo.save(data);
 		return new ModelAndView("redirect:/viewmedicalhistory/" + patientId);
 	}
-	
+
 	@RequestMapping(value="/viewpatientmedicaldetail/{id}/patient/{patientId}")
 	public String ViewPatientMedicalVisitDetail(Model model, @PathVariable("id") long id, @PathVariable("patientId") long patientId)
 	{
@@ -235,7 +249,7 @@ public class HomeController {
 		String familydoctor = medicalStaffRepo.findByMedicalStaffId(joinRepo.getFamilyDoctorId(patientId).getDoctorId()).getEmployeeName();
 		model.addAttribute("familydoctor", familydoctor);
 		return "patientmedicaldetailpage";
-		
+
 	}
 	@RequestMapping(value="/uploaddocument/{patientId}")
 	public String UploadDocumentPage(HttpServletRequest request, Model model, @PathVariable("patientId") long patientId)
@@ -253,7 +267,7 @@ public class HomeController {
 		List<PatientDocument> docs = (List<PatientDocument>) patientDocumentRepo.findAll();
 		model.addAttribute("documents", docs);
 		return "viewpatientdocuments";
-		
+
 	}
 	@RequestMapping(value="/viewtestrequisitions/{patientId}")
 	public String ViewTestRequisition(Model model, @PathVariable("patientId") long patientId)
@@ -275,5 +289,120 @@ public class HomeController {
 		List<PatientDocument> docs = patientDocumentRepo.findDocumentsByType(patientId, "prescription");
 		model.addAttribute("documents", docs);
 		return "viewpatientdocuments";
+	}
+	@RequestMapping(value="/bookappointment/{patientId}")
+	public String BookAppointmentPage(Model model, @PathVariable("patientId") long patientId)
+	{
+		Patient patient = patientRepo.findByPatientId(patientId);
+		model.addAttribute("patient", patient);
+		long accessId = userAccessRepo.findAccessIdByRole("Doctor");
+		List<Long> loginIds = userlogonRepo.findUserLoginIdsByAccess(accessId);
+		List<MedicalStaff> doctors = medicalStaffRepo.findEmployeeByLoginIds(loginIds);
+		model.addAttribute("doctors", doctors);
+		return "bookappointment";
+	}
+	@RequestMapping(value="/bookappointment/{patientId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String BookanAppointment(Model model, @PathVariable("patientId") long patientId, @RequestParam("date") Date date, @RequestParam("doctorId") long doctorId)
+	{
+		Patient patient = patientRepo.findByPatientId(patientId);
+		model.addAttribute("patient", patient);
+		List<DoctorSchedule> schedule = doctorScheduleRepo.findByDoctorSchedulesId(doctorId, date);
+		List<Appointments> appointments = new ArrayList<Appointments>();
+		List<Appointments> booked = appointmentsRepo.findBookedAppointmentsByDoctorAndDate(doctorId, date);
+		for (DoctorSchedule s : schedule )
+		{
+			for(Time t = s.getAvailableStartTime(); t.getTime() <= s.getAvailableEndTime().getTime();)
+			{
+				LocalTime localtime = t.toLocalTime();
+				 localtime = localtime.plusMinutes(15);
+				 Time endTime = Time.valueOf(localtime);
+				 Appointments appointment = new Appointments();
+				 appointment.setAppointmentStartTime(t);
+				 appointment.setAppointmentEndTime(endTime);
+				 appointment.setAppointmentDate(date);
+				 boolean found = false;
+				 if (booked.size() > 0)
+				 {
+					 for(Appointments app : booked)
+					 {
+						 if (app.getAppointmentStartTime().equals(t))
+						 {
+							found = true;
+						 }
+					 }
+				 }
+				 if (!found)
+				 {
+					 appointments.add(appointment);
+				 }
+				 t = endTime;
+			}
+		}
+		MedicalStaff doctor = medicalStaffRepo.findByMedicalStaffId(doctorId);
+		model.addAttribute("doctor", doctor);
+		model.addAttribute("appointments", appointments);
+		return "viewavailableappointments";
+	}
+	@RequestMapping(value="/setavailabletime/{doctorId}")
+	public String SetAvailableTime(Model model, @PathVariable("doctorId") long doctorId)
+	{
+		List<DoctorSchedule> schedule = doctorScheduleRepo.findByDoctorSchedulesId(doctorId);
+		model.addAttribute("schedule", schedule);
+		MedicalStaff doctor = medicalStaffRepo.findByMedicalStaffId(doctorId);
+		model.addAttribute("doctor", doctor);
+		return "updateavailability";
+	}
+	@RequestMapping(value="/setavailabletime/{doctorId}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String UpdateAvailableTime(Model model, @PathVariable("doctorId") long doctorId, @RequestParam("date") Date date, @RequestParam("startTime") String startTime, @RequestParam("endTime") String endTime)
+	{
+		
+		try {
+			DateFormat formatter = new SimpleDateFormat("HH:mm");
+			DoctorSchedule doctorSchedule = new DoctorSchedule();
+			doctorSchedule.setDate(date);	
+			doctorSchedule.setAvailableStartTime(new Time(formatter.parse(startTime).getTime()));
+			doctorSchedule.setAvailableEndTime(new Time(formatter.parse(endTime).getTime()));
+			doctorSchedule.setDoctorId(doctorId);
+			doctorScheduleRepo.save(doctorSchedule);
+		} catch (ParseException e) {
+		}
+		return "redirect:/setavailabletime/"+doctorId;
+	}
+	@RequestMapping(value="/bookdoctorappointment/{patientId}/{startTime}/{endTime}", method = RequestMethod.POST, consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+	public String BookDoctorsAppointment(Model model, @PathVariable("patientId") long patientId, @PathVariable("startTime") Time startTime, @PathVariable("endTime") Time endTime,
+			@RequestParam("doctorId") long doctorId, @RequestParam("date") Date date)
+	{
+		Appointments appointment = new Appointments();
+		appointment.setJoinId(joinRepo.getFamilyDoctorId(patientId).getId());
+		appointment.setDoctorId(doctorId);
+		appointment.setAppointmentDate(date);
+		appointment.setAppointmentStartTime(startTime);
+		appointment.setAppointmentEndTime(endTime);
+		appointmentsRepo.save(appointment);
+		MedicalStaff doctor = medicalStaffRepo.findByMedicalStaffId(doctorId);
+		model.addAttribute("doctor", doctor);
+		Patient patient = patientRepo.findByPatientId(patientId);
+		model.addAttribute("patient", patient);
+		model.addAttribute("appointment", appointment);
+		return "appointmentconfirmation";
+	}
+	@RequestMapping(value="/patientappointments/{patientId}")
+	public String ViewPatientAppointments(Model model, @PathVariable("patientId") long patientId)
+	{
+		Patient patient = patientRepo.findByPatientId(patientId);
+		model.addAttribute("patient", patient);
+		long joinId = joinRepo.getFamilyDoctorId(patientId).getId();
+		List<Appointments> appointments = appointmentsRepo.findBookedAppointmentsByPatient(joinId);
+		model.addAttribute("appointments", appointments);
+		return "patientappointments";
+	}
+	@RequestMapping(value="/cancelappointment", method = RequestMethod.GET)
+	public String CancelAppointment(@RequestParam long id, HttpServletRequest request)
+	{
+		String loginid = request.getSession().getAttribute("LoginId").toString();
+		long patientId = patientRepo.findPatientByLoginId(Long.parseLong(loginid)).getPatientId();
+		Appointments app = appointmentsRepo.findByAppointmentId(id);
+		appointmentsRepo.delete(app);
+		return "redirect:/patientappointments/"+ patientId;
 	}
 }

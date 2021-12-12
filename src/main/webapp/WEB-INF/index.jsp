@@ -73,6 +73,19 @@
 										href="/viewpatientprescriptions/${user.getPatientId()}"
 										title="View My Prescriptions">View My Prescriptions</a>
 								</div>
+								<div class="col-4">
+									<a class="btn btn-secondary  btn-lg btn-block"
+										href="/bookappointment/${user.getPatientId()}"
+										title="Book An Appointment">Book an Appointment</a>
+								</div>
+							</div>
+							<br />
+							<div class="row">
+								<div class="col-4">
+									<a class="btn btn-secondary  btn-lg btn-block"
+										href="/patientappointments/${user.getPatientId()}"
+										title="View My Appointments">View My Appointments</a>
+								</div>
 							</div>
 						</div>
 					</td>

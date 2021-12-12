@@ -1,5 +1,6 @@
 package com.curahealthyme.model;
 
+import java.sql.Time;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -8,14 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import org.springframework.format.datetime.standard.DateTimeContext;
 
 @Entity
-@Table(name = "doctorSchedule")
+@Table(name = "doctorschedule")
 public class DoctorSchedule {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = javax.persistence.GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long Id;
 
@@ -26,10 +26,10 @@ public class DoctorSchedule {
 	public Date Date;
 
 	@Column(name = "availablestarttime")
-	public Date AvailableStartTime;
+	public Time AvailableStartTime;
 
 	@Column(name = "availableendtime")
-	public Date AvailableEndTime;
+	public Time AvailableEndTime;
 
 	public long getId() {
 		return Id;
@@ -55,19 +55,19 @@ public class DoctorSchedule {
 		Date = date;
 	}
 
-	public Date getAvailableStartTime() {
+	public Time getAvailableStartTime() {
 		return AvailableStartTime;
 	}
 
-	public void setAvailableStartTime(Date availableStartTime) {
+	public void setAvailableStartTime(Time availableStartTime) {
 		AvailableStartTime = availableStartTime;
 	}
 
-	public Date getAvailableEndTime() {
+	public Time getAvailableEndTime() {
 		return AvailableEndTime;
 	}
 
-	public void setAvailableEndTime(Date availableEndTime) {
+	public void setAvailableEndTime(Time availableEndTime) {
 		AvailableEndTime = availableEndTime;
 	}
 

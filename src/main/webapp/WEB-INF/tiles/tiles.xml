@@ -67,14 +67,36 @@
 		<put-attribute name="content"
 			value="/WEB-INF/patientmedicaldetailpage.jsp" />
 	</definition>
-		<definition name="uploaddocument"
-		extends="partialview">
+	<definition name="uploaddocument" extends="partialview">
 		<put-attribute name="content"
 			value="/WEB-INF/uploaddocument.jsp" />
 	</definition>
-			<definition name="viewpatientdocuments"
+	<definition name="viewpatientdocuments"
 		extends="partialview">
 		<put-attribute name="content"
 			value="/WEB-INF/viewpatientdocuments.jsp" />
+	</definition>
+	<definition name="bookappointment" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/bookappointment.jsp" />
+	</definition>
+	<definition name="updateavailability" extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/updateavailability.jsp" />
+	</definition>
+	<definition name="viewavailableappointments"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/viewavailableappointments.jsp" />
+	</definition>
+	<definition name="appointmentconfirmation"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/appointmentconfirmation.jsp" />
+	</definition>
+	<definition name="patientappointments"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/patientappointments.jsp" />
 	</definition>
 </tiles-definitions>
