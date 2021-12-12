@@ -53,6 +53,10 @@
 										href="/sendtestresult" title="Send Test Requisitions">Send
 										Test result</a>
 								</div>
+								<div class="col-4">
+									<a class="btn btn-secondary  btn-lg btn-block"
+										href="/notification" title="Notification">Notification</a>
+								</div>
 							</div>
 						</div>
 					</td>
