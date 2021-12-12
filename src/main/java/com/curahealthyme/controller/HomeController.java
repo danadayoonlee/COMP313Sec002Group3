@@ -405,4 +405,13 @@ public class HomeController {
 		appointmentsRepo.delete(app);
 		return "redirect:/patientappointments/"+ patientId;
 	}
+	@RequestMapping(value="/doctorappointments/{doctorId}")
+	public String ViewDoctorAppointments(Model model, @PathVariable("doctorId") long doctorId)
+	{
+		MedicalStaff doctor = medicalStaffRepo.findByMedicalStaffId(doctorId);
+		model.addAttribute("doctor", doctor);
+		List<Appointments> appointments = appointmentsRepo.findBookedAppointmentsByDoctor(doctorId);
+		model.addAttribute("appointments", appointments);
+		return "doctorappointments";
+	}
 }

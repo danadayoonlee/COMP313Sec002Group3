@@ -47,6 +47,10 @@
 									<a class="btn btn-secondary  btn-lg btn-block"
 										href="/setavailabletime/${user.getEmployeeId()}" title="Set Available Time">Update Availability</a>
 								</div>
+								<div class="col-4">
+									<a class="btn btn-secondary  btn-lg btn-block"
+										href="/doctorappointments/${user.getEmployeeId()}" title="View My Appointments">View My Appointments</a>
+								</div>
 							</div>
 						</div>
 					</td>

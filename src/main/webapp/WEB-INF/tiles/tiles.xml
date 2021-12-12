@@ -99,4 +99,9 @@
 		<put-attribute name="content"
 			value="/WEB-INF/patientappointments.jsp" />
 	</definition>
+		<definition name="doctorappointments"
+		extends="partialview">
+		<put-attribute name="content"
+			value="/WEB-INF/doctorappointments.jsp" />
+	</definition>
 </tiles-definitions>
