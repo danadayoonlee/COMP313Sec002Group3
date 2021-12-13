@@ -162,12 +162,14 @@ public class HomeController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/viewmedicalhistory/{patientId}")
-	public String GetPatientMedicalHistory(Model model, @PathVariable("patientId") long patientId) {
+	@RequestMapping(value = "/viewmedicalhistory/{patientId}" )
+	public String GetPatientMedicalHistory(Model model, @PathVariable("patientId") long patientId, HttpServletRequest request) {
 		long joinId = joinRepo.getFamilyDoctorId(patientId).getId();
+		String userrole = request.getSession().getAttribute("userrole").toString();
 
 		Patient patient = patientRepo.findByPatientId(patientId);
 		model.addAttribute("patient", patient);
+		model.addAttribute("userrole", userrole);
 		List<Patient_Medical_History> patientdata = patientDataRepo.getPatientMedicalHistory(joinId);
 		model.addAttribute("medicalhistory", patientdata);
 		long id = joinRepo.getFamilyDoctorId(patient.getPatientId()) == null ? 0

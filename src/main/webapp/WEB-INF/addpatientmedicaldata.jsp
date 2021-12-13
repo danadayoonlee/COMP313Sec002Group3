@@ -20,6 +20,14 @@
 							<td>${patient.getName()}</td>
 						</tr>
 						<tr>
+							<td class="font-weight-bold">Health Card Number</td>
+							<td>${patient.getCardNumber()}</td>
+						</tr>
+						<tr>
+							<td class="font-weight-bold">Health Card Expiry Date</td>
+							<td>${patient.getExpiryDate()}</td>
+						</tr>
+						<tr>
 							<td class="font-weight-bold">Date of Birth</td>
 							<td>${patient.getDob()}</td>
 						</tr>
