@@ -50,6 +50,7 @@ public class Patient {
 	
 	@Column(name = "loginid")
 	public long LoginId;
+	
 
 	public long getPatientId() {
 		return PatientId;
