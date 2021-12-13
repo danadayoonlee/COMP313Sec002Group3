@@ -18,4 +18,5 @@ public interface PatientRepository  extends CrudRepository<Patient, Long>{
     public Patient findByPatientId(long id);
 	@Query("SELECT u FROM Patient u WHERE u.PatientId in ?1")
     public List<Patient> findByIds(List<Long> id);
+	
 }

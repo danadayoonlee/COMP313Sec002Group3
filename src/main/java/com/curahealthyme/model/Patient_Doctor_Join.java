@@ -21,6 +21,7 @@ public class Patient_Doctor_Join {
 
 	@Column(name = "doctorid")
 	public long DoctorId;
+	
 
 	public long getId() {
 		return Id;
