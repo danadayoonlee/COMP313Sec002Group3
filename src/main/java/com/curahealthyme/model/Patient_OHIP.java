@@ -3,19 +3,20 @@ package com.curahealthyme.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "patient_OHIP")
+@Table(name = "patient_ohip")
 public class Patient_OHIP {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
 	private long Id;
 
-	@Column(name = "patientId")
+	@Column(name = "patientid")
 	public long PatientId;
 
 	@Column(name = "ohip")

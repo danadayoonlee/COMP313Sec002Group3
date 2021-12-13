@@ -14,13 +14,13 @@ import javax.persistence.Table;
 public class Patient {
 
 	@Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "patientid")
 	private long PatientId;
 
 	@Column(name = "name")
 	public String Name;
-
+	
 	@Column(name = "dob")
 	public Date Dob;
 
@@ -67,7 +67,8 @@ public class Patient {
 	public void setName(String name) {
 		Name = name;
 	}
-
+	
+	
 	public Date getDob() {
 		return Dob;
 	}

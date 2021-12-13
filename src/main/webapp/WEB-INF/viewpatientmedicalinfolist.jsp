@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <div class="container" style="min-height: 100%;">
 	<div class="form-row">
 		<div class="col text-center">
@@ -14,7 +14,9 @@
 			<div class="col-6">
 				<label class="font-weight-bold">Patient Name</label>&nbsp;<span
 					th:inline="text">${patient.getName()}</span><br /> <label
-					class="font-weight-bold">Date of Birth</label>&nbsp;<span
+					class="font-weight-bold">Health Card Number</label>&nbsp;<span
+					th:inline="text">${patient_ohip.ohipnumber()}</span><br />				
+				<label class="font-weight-bold">Date of Birth</label>&nbsp;<span
 					th:inline="text">${patient.getDob()}</span><br /> <label
 					class="font-weight-bold">Address</label>&nbsp;<span
 					th:inline="text">${patient.getStreet()},
@@ -26,12 +28,25 @@
 					class="font-weight-bold">Family Doctor</label>&nbsp;<span
 					th:inline="text">${familydoctor}</span><br />
 			</div>
-						<div class="col-3" height="100%">
-			<a href="/uploaddocument/${patient.getPatientId()}" class="btn btn-primary" alt="Upload Document" style="bottom:0;position:absolute;right:0;">Upload Document</a>
-			</div>
-			<div class="col-3" height="100%">
-			<a href="/addpatientmedicaldata/${patient.getPatientId()}" class="btn btn-primary" alt="Add Patient Medical Info" style="bottom:0;position:absolute;right:0;">+ Add Patient Medical Info</a>
-			</div>
+			<c:choose>
+				<c:when test="${userrole == 'Doctor'}">
+					<div class="col-3" height="100%">
+						<a href="/uploaddocument/${patient.getPatientId()}"
+							class="btn btn-primary" alt="Upload Document"
+							style="bottom: 0; position: absolute; right: 0;">Upload
+							Document</a>
+					</div>
+					<div class="col-3" height="100%">
+						<a href="/addpatientmedicaldata/${patient.getPatientId()}"
+							class="btn btn-primary" alt="Add Patient Medical Info"
+							style="bottom: 0; position: absolute; right: 0;">+ Add
+							Patient Medical Info</a>
+					</div>
+
+				</c:when>
+
+			</c:choose>
+
 		</div>
 	</div>
 	<br />
@@ -50,12 +65,14 @@
 				<c:when test="${medicalhistory.size() > 0}">
 					<c:forEach items="${medicalhistory}" var="i">
 						<tr>
-							<td th:inline="text"><fmt:formatDate value="${i.getDateVisited()}" pattern="yyyy-MM-dd" /></td>
+							<td th:inline="text"><fmt:formatDate
+									value="${i.getDateVisited()}" pattern="yyyy-MM-dd" /></td>
 							<td th:inline="text">${i.getLocationOfVisit()}</td>
 							<td th:inline="text">${i.getServicesDue()}</td>
-							<td th:inline="text"><fmt:formatDate value="${i.getFollowUp()}" pattern="yyyy-MM-dd" />
-							</td>
-							<td><a href="/viewpatientmedicaldetail/${i.getId()}/patient/${patient.getPatientId()}">View</a></td>
+							<td th:inline="text"><fmt:formatDate
+									value="${i.getFollowUp()}" pattern="yyyy-MM-dd" /></td>
+							<td><a
+								href="/viewpatientmedicaldetail/${i.getId()}/patient/${patient.getPatientId()}">View</a></td>
 						</tr>
 					</c:forEach>
 				</c:when>

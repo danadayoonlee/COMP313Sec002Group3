@@ -30,6 +30,13 @@
 			</div>
 		</div>
 		<br />
+		<div class="row" style="margin-bottom: 20px">
+			<div class="col-6">
+				<label>Health Card Number</label>&nbsp; <input type="text"
+					class="form-control" name="cardNumber" id="cardNumber" />
+			</div>
+			
+		</div>
 		<div class="row">
 			<div class="col-6">
 				<label>Date of Birth</label>&nbsp; <input type="date"

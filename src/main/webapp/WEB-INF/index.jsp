@@ -30,11 +30,7 @@
 				</tr>
 				<tr>
 					<td>Health Card NUmber</td>
-					<td th:inline="text"></td>
-				</tr>
-				<tr>
-					<td>Health Card Expiry</td>
-					<td th:inline="text"></td>
+					<td th:inline="text">${ohip}</td>
 				</tr>
 				<tr>
 					<td>Family Doctor</td>

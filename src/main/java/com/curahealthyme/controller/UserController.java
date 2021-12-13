@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.curahealthyme.model.MedicalStaff;
 import com.curahealthyme.model.Patient;
+import com.curahealthyme.model.Patient_OHIP;
 import com.curahealthyme.model.UserAccess;
 import com.curahealthyme.model.User_Logon;
 import com.curahealthyme.repo.MedicalStaffRepository;
 import com.curahealthyme.repo.PatientRepository;
+import com.curahealthyme.repo.Patient_OHIPRepository;
 import com.curahealthyme.repo.UserAccessRepository;
 import com.curahealthyme.repo.User_LogonRepository;
 
@@ -32,6 +34,8 @@ public class UserController {
 	
 	@Autowired
 	private MedicalStaffRepository medicalStaffRepo;
+	@Autowired
+	private Patient_OHIPRepository ohipRepo;
 
 	@RequestMapping(value = "/success")
 	public String success() {
@@ -41,7 +45,7 @@ public class UserController {
 	@RequestMapping(value = "/register", method = RequestMethod.POST)
 	public String registeruser(Patient patient, @RequestParam("username") String username,
 			@RequestParam("useraccessid") String accessId, @RequestParam("password") String pwd,
-			@RequestParam("confirmpwd") String confirmpwd, Model model) {
+			@RequestParam("confirmpwd") String confirmpwd, Model model, @RequestParam("cardNumber") String cardNumber) {
 		User_Logon existuser =userlogonRepo.isUserNameExist(username);
 		if (existuser != null) {
 			model.addAttribute("errorMsg", "Invalid Username!");
@@ -59,6 +63,10 @@ public class UserController {
 			patient.setLoginId(userlogon.getId());
 			if (userrole.getUserRole().equals("Patient")) {
 				patientRepo.save(patient);
+				Patient_OHIP ohip = new Patient_OHIP();
+				ohip.setPatientId(patient.getPatientId());
+				ohip.setOhip(cardNumber);
+				ohipRepo.save(ohip);
 			} else {
 				MedicalStaff medicalStaff = new MedicalStaff();
 				medicalStaff.setEmployeeName(patient.getName());

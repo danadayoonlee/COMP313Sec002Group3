@@ -12,6 +12,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,6 +34,7 @@ import com.curahealthyme.repo.PatientDocumentRepository;
 import com.curahealthyme.repo.PatientRepository;
 import com.curahealthyme.repo.Patient_Doctor_JoinRepository;
 import com.curahealthyme.repo.Patient_Medical_HistoryRepository;
+import com.curahealthyme.repo.Patient_OHIPRepository;
 import com.curahealthyme.repo.UserAccessRepository;
 import com.curahealthyme.repo.User_LogonRepository;
 
@@ -61,6 +63,8 @@ public class HomeController {
 	private DoctorScheduleRepository doctorScheduleRepo;
 	@Autowired
 	private AppointmentsRepository appointmentsRepo;
+	@Autowired
+	private Patient_OHIPRepository ohipRepo;
 
 	@RequestMapping(value = "/")
 	public String home(HttpServletRequest request, Model model) {
@@ -74,6 +78,7 @@ public class HomeController {
 				System.out.println("Patient");
 				Patient patient = patientRepo.findPatientByLoginId(Long.parseLong(loginid));
 				model.addAttribute("user", patient);
+				model.addAttribute("ohip", 	ohipRepo.findPatientOHIP(patient.getPatientId()));
 				long id = joinRepo.getFamilyDoctorId(patient.getPatientId()) == null ? 0
 						: joinRepo.getFamilyDoctorId(patient.getPatientId()).getDoctorId();
 				if (id != 0) {
@@ -162,12 +167,14 @@ public class HomeController {
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/viewmedicalhistory/{patientId}")
-	public String GetPatientMedicalHistory(Model model, @PathVariable("patientId") long patientId) {
+	@RequestMapping(value = "/viewmedicalhistory/{patientId}" )
+	public String GetPatientMedicalHistory(Model model, @PathVariable("patientId") long patientId, HttpServletRequest request) {
 		long joinId = joinRepo.getFamilyDoctorId(patientId).getId();
+		String userrole = request.getSession().getAttribute("userrole").toString();
 
 		Patient patient = patientRepo.findByPatientId(patientId);
 		model.addAttribute("patient", patient);
+		model.addAttribute("userrole", userrole);
 		List<Patient_Medical_History> patientdata = patientDataRepo.getPatientMedicalHistory(joinId);
 		model.addAttribute("medicalhistory", patientdata);
 		long id = joinRepo.getFamilyDoctorId(patient.getPatientId()) == null ? 0
